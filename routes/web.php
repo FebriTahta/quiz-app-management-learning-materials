@@ -19,6 +19,7 @@ use App\Http\Controllers\TugasController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\TokenWebController;
 use App\Http\Controllers\NotifController;
+use App\Http\Controllers\JadwalController;
 use GuzzleHttp\Psr7\Request;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 /*
@@ -43,8 +44,11 @@ Route::post('/post-comment-video',[KomenController::class,'post_komen_video']);
 Route::get('/display-komen/{vids_id}',[KomenController::class,'display_komen']);
 Route::post('tokenweb',TokenWebController::class);
 Route::get('/get-my-notif',[NotifController::class,'get_my_notif']);
-Route::get('/test-notif',[NotifController::class,'test']);
+Route::get('/update-notif-jadwal-admin',[JadwalController::class,'update_notif_jadwal_admin']);
+Route::get('/test',[NotifController::class,'test']);
 Route::get('/read-all-notif',[NotifController::class,'read_all_notif']);
+Route::get('/dropdown-hari',[JadwalController::class,'dropdown_hari']);
+Route::get('/admin-jadwal',[JadwalController::class,'admin_jadwal']);
 
 Route::controller(UserController::class)->group(function(){
     Route::get('/admin-daftar-user','daftar_user');

@@ -323,6 +323,11 @@
                                     multiple="multiple" required>
                                 </select>
                             </div>
+                            <div class="col-md-12 col-12" style="padding-left: 5px; margin-bottom: 20px">
+                                <select name="hari_id[]" id="haridropdown" class="form-control select2"
+                                    multiple="multiple" required>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1211,12 +1216,26 @@
                     $("#formaddguru")[0].reset();
                     $('#btnaddguru').attr('disabled', false);
                     $('#btnaddguru').val('Submit');
-                    toastr.success(response.message);
-                    swal({
-                        title: "SUCCESS!",
-                        text: response.message,
-                        type: "success"
-                    });
+                    if (response.status == '200') {
+                        toastr.success(response.message);
+                        swal({
+                            title: "SUCCESS!",
+                            text: response.message,
+                            type: "success"
+                        });    
+                    }else{
+                        var text;
+                        $.each(response.message, function(key, index) {
+                            text = index;
+                        })
+                        toastr.success(text);
+                        swal({
+                            title: "ERROR!",
+                            text: text,
+                            type: "error"
+                        });
+                    }
+                    
                 },
                 error: function(data) {
                     console.log(data);
@@ -1425,6 +1444,7 @@
 
         $('#addguru').on('hidden.bs.modal', function() {
             $('#mapeldropdown option').remove();
+            $('#haridropdown option').remove();
         });
 
         var kelasId;
@@ -1474,6 +1494,19 @@
                             $('#mapeldropdown').append('<option value="' + value.id + '">' +
                                 value
                                 .mapel_name + '</option>')
+                        });
+
+                    }
+                });
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/dropdown-hari/',
+                    success: function(response) {
+                        $.each(response.data, function(key, value) {
+                            $('#haridropdown').append('<option value="' + value.id + '">' +
+                                value
+                                .hari_ind + '</option>')
                         });
 
                     }

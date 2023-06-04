@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Notif;
 use App\Models\User;
 use App\Models\Siswa;
+use App\Models\Hari;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,9 +44,20 @@ class NotifController extends Controller
         }
     }
 
+    
+
 
     public function test()
     {
+        $hari = [
+            [
+                'hari_ind'=>'senin',
+            ],
+            [
+                'hari_ind'=>'selasa',
+            ]
+        ];
+        return $hari;
         return 'use this method for testing anything';
     }
 

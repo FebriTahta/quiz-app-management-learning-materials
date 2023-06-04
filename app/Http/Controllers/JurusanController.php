@@ -153,7 +153,7 @@ class JurusanController extends Controller
                 return $data->angkatan->angkatan_name. ' - '.$data->angkatan->tingkat->tingkat_name;
             })
             ->addColumn('kelas_jurusan', function($data) {
-                return $data->jurusan->jurusan_name.' '.$data->kelas_name;
+                return $data->kelas_name;
             })
             ->addColumn('opsi', function($data) {
                 $btn  = ' <button class="btn btn-xs btn-danger" data-id="'.$data->id.'"
@@ -350,13 +350,15 @@ class JurusanController extends Controller
                                 'jurusan_name' => $request->jurusan_name,
                                 'jurusan_slug' => Str::slug($request->jurusan_name),
                             ]);
+
+                            $angkatan = Angkatan::where('id', $request->angkatan_id)->first();
     
                             $kelas = Kelas::where('jurusan_id', $jurusan->id)->where('angkatan_id',$request->angkatan_id)->count();
                             $total = $kelas + $request->total_kelas;
                             for ($i=$kelas; $i < $total ; $i++) { 
                                 # code...
                                 $kelas_baru =  [
-                                    'kelas_name' => $i+1,
+                                    'kelas_name' => $angkatan->tingkat->tingkat_name.' '.$request->jurusan_name.' '.$i+1,
                                     'jurusan_id' => $jurusan->id,
                                     'angkatan_id' => $request->angkatan_id,
                                 ];
@@ -399,12 +401,13 @@ class JurusanController extends Controller
                 }else {
 
                     $jurusan = Jurusan::where('id', $request->jurusan_id)->first();
+                    $angkatan = Angkatan::where('id', $request->angkatan_id)->first();
                     $kelas   = Kelas::where('jurusan_id', $jurusan->id)->where('angkatan_id',$request->angkatan_id)->count();
                     $total = $kelas + $request->total_kelas;
                     for ($i=$kelas; $i < $total ; $i++) { 
                         # code...
                         $kelas_baru =  [
-                            'kelas_name' => $i+1,
+                            'kelas_name' => $angkatan->tingkat->tingkat_name.' '.$jurusan->jurusan_name.' '.$i+1,
                             'jurusan_id' => $jurusan->id,
                             'angkatan_id' => $request->angkatan_id,
                         ];

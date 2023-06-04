@@ -71,4 +71,9 @@ class Mapelmaster extends Model
     {
         return $this->hasMany(Jawabanmulti::class);
     }
+
+    public function hari()
+    {
+        return $this->belongsToMany(Hari::class);
+    }
 }

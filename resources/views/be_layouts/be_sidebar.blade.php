@@ -138,6 +138,12 @@
                                     <span>Guru</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/admin-jadwal">
+                                    <i class="icon icon-calendar light-blue-text s-14"></i>
+                                    <span>Jadwal</span>
+                                </a>
+                            </li>
                             {{-- <li>
                                 <a href="/admin-siswa">
                                     <i class="icon icon-group light-blue-text s-14"></i>

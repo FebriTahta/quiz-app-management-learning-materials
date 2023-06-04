@@ -3,26 +3,17 @@
     <ul class="nav navbar-nav">
         <!-- Messages-->
         <!-- Notifications -->
-        {{-- <li class="dropdown custom-dropdown notifications-menu">
+        <li class="dropdown custom-dropdown notifications-menu">
             <a href="#" class=" nav-link" data-toggle="dropdown" aria-expanded="false">
                 <i class="icon-notifications "></i>
-                <span class="badge badge-danger badge-mini rounded-circle">4</span>
+                <span class="badge badge-danger badge-mini rounded-circle" id="total_notif"></span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
-                <li class="header">You have -- notifications</li>
-                <li>
-                    <!-- inner menu: contains the actual data -->
-                    <ul class="menu">
-                        <li>
-                            <a href="#">
-                                <i class="icon icon-data_usage text-success"></i> Tes Notifikasi
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="footer p-2 text-center"><a href="#">View all</a></li>
+            <ul class="dropdown-menu dropdown-menu-right" id="wrapper_notif_admin">
+                <li class="header" id="head-notif">You have -- notifications</li>
+                
+                <li class="footer p-2 text-center"><a href="/read-all-notif">read all notif</a></li>
             </ul>
-        </li> --}}
+        </li>
         
         <!-- Right Sidebar Toggle Button -->
         {{-- <li>

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\Guru;
 use App\Models\Detailguru;
 use App\Models\Mapelmaster;
+use App\Models\Jadwal;
 use Image;
 use File;
 use DataTables;
+use DB;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -82,27 +84,53 @@ class GuruController extends Controller
 
     public function post_mapel_master(Request $request)
     {
-        foreach ($request->mapel_id as $key => $value) {
-            # code...
-            $exist = Mapelmaster::where('guru_id', $request->guru_id)
-            ->where('mapel_id',$request->mapel_id[$key])
-            ->where('kelas_id', $request->id)
-            ->first();
-            if (!$exist) {
-                # code...
-                Mapelmaster::create([
-                    'guru_id'=> $request->guru_id,
-                    'mapel_id'=> $request->mapel_id[$key],
-                    'kelas_id'=> $request->id,
-                ]);
-            }
-            
-        }
+        DB::beginTransaction();
 
+        try {
+            //code...
+            
+            foreach ($request->mapel_id as $key => $value) {
+                # code...
+                $mapel_exist = Mapelmaster::where('guru_id', $request->guru_id)
+                ->where('mapel_id',$request->mapel_id[$key])
+                ->where('kelas_id', $request->id)
+                ->first();
+
+                if (!$mapel_exist) {
+                    # code...
+                    $mapelmaster = [
+                        'guru_id'=> $request->guru_id,
+                        'mapel_id'=> $request->mapel_id[$key],
+                        'kelas_id'=> $request->id,
+                    ];
+                    Mapelmaster::insert($mapelmaster);
+
+                    $map =  Mapelmaster::where('guru_id', $request->guru_id)
+                    ->where('mapel_id',$request->mapel_id[$key])
+                    ->where('kelas_id', $request->id)
+                    ->first();
+
+                    $map->hari()->sync($request->hari_id);
+                }
+            }
+
+        DB::commit();
         return response()->json([
             'status'=> 200,
-            'message'=> 'Guru pengampuh mapel telah ditambahkan'
+            'message'=> 'Guru pengampuh mapel telah ditambahkan',
         ]);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollback();
+            return response()->json([
+                'status'=> 400,
+                'message'=> 'Periksa sisi backend anda',
+            ]);
+        }
+        
+
+        
     }
 
     public function post_mapel_master2(Request $request)

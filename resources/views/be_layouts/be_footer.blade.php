@@ -29,7 +29,7 @@
 <!-- /.right-sidebar -->
 <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
-<div class="control-sidebar-bg shadow white fixed"></div>
+<div class="control-sidebar-bg shadow white fixed" ></div>
 </div>
 <!--/#app -->
 <script src="{{asset('assets/assets/js/app.js')}}"></script>
@@ -48,6 +48,40 @@
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
 
 @yield('script')
+
+<script>
+$(document).ready(function () {
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var wrapper = $('#wrapper_notif_admin');
+    var pesan = [];
+    if (today.getHours() < 15) {
+        $.ajax({
+        type: 'GET',
+        url: '/update-notif-jadwal-admin',
+        success: function(response) {
+            $('#total_notif').html(response.total);
+            $('#head-notif').html('You have '+response.total+' notifications');
+            console.log(response.data.length);
+            $.each(response.data, function(index, value) {
+                $('#notif'+index).remove();
+                if (value.status == 'unread') {
+                    wrapper.append(
+                        '<li class="header" style="background-color: rgb(228, 225, 225)"><a href="'+value.link+'"><i class="icon icon-data_usage text-success"></i>'+value.pesan+'</a></li>'
+                    );   
+                }else{
+                    wrapper.append(
+                        '<li class="header"><a href="'+value.link+'"><i class="icon icon-data_usage text-success"></i>'+value.pesan+'</a></li>'
+                    );
+                }
+            })
+        }
+    });
+    }
+})
+</script>
+
 <script>(function($,d){$.each(readyQ,function(i,f){$(f)});$.each(bindReadyQ,function(i,f){$(d).bind("ready",f)})})(jQuery,document)</script>
+@vite(['resources/js/app.js'])
 </body>
 </html>
