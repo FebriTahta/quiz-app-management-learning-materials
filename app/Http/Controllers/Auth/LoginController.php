@@ -65,7 +65,10 @@ class LoginController extends Controller
                 return redirect('/home-lms-guru');
             } else {
                 # code...
-                return redirect('/home-lms');
+                if (auth()->user()->siswa->with('kelas')) {
+                    # code...
+                    return redirect('/home-lms');
+                }
             }
         } else {
             return redirect()->back()

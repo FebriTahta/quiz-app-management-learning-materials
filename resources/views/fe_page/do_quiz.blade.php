@@ -40,7 +40,7 @@
                                                         'materi_id'=> $materi_id,
                                                     ]) }}"
                                                         id="btnQuiz-{{ $panel->soalmulti_id }}" type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-outline-secondary"> <span
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-outline-secondary"> <span
                                                             style="font-size: 12px">{{ $i + 1 }}</span> </a>
                                                 @else
                                                     <a href="{{ route('doQuiz', [
@@ -49,7 +49,7 @@
                                                         'mapelmaster_id' => $mapelmaster_id,
                                                         'materi_id'=> $materi_id,
                                                     ]) }}"type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-success">
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-success">
                                                         <span style="font-size: 12px">{{ $i + 1 }}</span> </a>
                                                 @endif
                                             @endforeach

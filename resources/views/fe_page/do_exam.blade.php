@@ -21,7 +21,9 @@
                                 <div class="events__sidebar-widget white-bg">
                                     <div class="events__sponsor" style="text-align: center">
                                         <h3 class="events__sponsor-title">
-                                            <h4>{{$quiz->ujian_datetimeend }} ({{ $quiz->ujian_lamapengerjaan }}:00 MENIT)</h4>
+                                            <h5>{{$quiz->ujian_datetimeend }} 
+                                                {{-- ({{ $quiz->ujian_datetimeend }}:00 MENIT) --}}
+                                            </h5>
                                             <h5 id="counter"></h5>
                                         </h3>
 
@@ -40,7 +42,7 @@
                                                         'kelas_id'=> $kelas_id,
                                                     ]) }}"
                                                         id="btnQuiz-{{ $panel->soalexam_id }}" type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-outline-secondary"> <span
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-outline-secondary"> <span
                                                             style="font-size: 12px">{{ $i + 1 }}</span></a>
                                                 @else
                                                     <a href="{{ route('doExam', [
@@ -49,7 +51,7 @@
                                                         'mapel_id' => $mapel_id,
                                                         'kelas_id'=> $kelas_id,
                                                     ]) }}"type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-success">
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-success">
                                                         <span style="font-size: 12px">{{ $i + 1 }}</span> </a>
                                                 @endif
                                             @endforeach

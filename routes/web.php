@@ -187,6 +187,7 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function () {
 Route::group(['middleware' => ['auth', 'CheckRole:siswa']], function () {
     Route::controller(LandingController::class)->group(function () {
         Route::get('/home-lms', 'home_lms');
+        Route::post('/submit-missing-data-siswa','submit_missing_data')->name('submit.missing_data_siswa');
     });
 });
 

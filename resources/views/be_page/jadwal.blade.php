@@ -81,7 +81,15 @@
                                                 @if ($item->mapelmaster_count > 0)
                                                 <td>
                                                     @foreach ($item->mapelmaster as $i)
-                                                    {{$i->mapel->mapel_name}} {{$i->kelas->angkatan->tingkat->tingkat_name}}  {{$i->kelas->kelas_name}} : {{$i->guru->guru_name}} <br>
+                                                    {{$i->mapel->mapel_name}} 
+                                                    @if ($i->kelas)
+                                                        {{$i->kelas->angkatan->tingkat->tingkat_name}}    
+                                                        {{$i->kelas->kelas_name}}
+                                                    @else
+                                                        {{$i->delete()}}
+                                                    @endif
+                                                    : {{$i->guru->guru_name}} 
+                                                    <br>
                                                     @endforeach
                                                 </td>
                                                 @else
