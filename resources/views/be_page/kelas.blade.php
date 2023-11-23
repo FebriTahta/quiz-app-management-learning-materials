@@ -649,7 +649,11 @@
                                 <input type="hidden" class="form-control" id="id" name="id">
                                 <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id">
                             </div>
-                            <div class="col-md-8 col-8" id="block-new-jurusan" style="padding-right: 5px">
+                            <div class="col-md-4 col-4" id="block-new-jurusan" style="padding-right: 5px">
+                                <input type="text" style="font-size: 14px" id="tingkat_name" name="tingkat_name"
+                                    class="form-control" placeholder="tingkatan kelas" readonly>
+                            </div>
+                            <div class="col-md-4 col-4" id="block-new-jurusan" style="padding-right: 5px">
                                 <input type="text" style="font-size: 14px" id="jurusan_name" name="jurusan_name"
                                     class="form-control" placeholder="nama jurusan" readonly>
                             </div>
@@ -1398,11 +1402,13 @@
             var jurusan_name = button.data('jurusan_name')
             var kelas_name = button.data('kelas_name')
             var jurusan_id = button.data('jurusan_id')
+            var tingkat_name = button.data('tingkat_name')
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #jurusan_name').val(jurusan_name);
             modal.find('.modal-body #kelas_name').val(kelas_name);
             modal.find('.modal-body #jurusan_id').val(jurusan_id);
+            modal.find('.modal-body #tingkat_name').val(tingkat_name);
         })
 
         $('#modaledit2').on('show.bs.modal', function(event) {
