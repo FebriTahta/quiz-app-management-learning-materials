@@ -56,9 +56,49 @@ class ExamController extends Controller
         return view('be_page.manajemen_ujian',['mapel'=>$mapel]);
     }
 
-    public function prev_ujian($mapelmaster_id,$materi_id,$ujian_id)
+    public function prev_ujian($mapelmaster_id,$exam_id)
     {
+        return $mapelmaster_id;
+        // $request->siswaId =  Siswa::where('user_id', Auth::id())->first()->id;
+        $request->siswaId = auth()->user()->id;
+        $request->exam_id = $id;
+        $quiz = Soalexam::where('exam_id', $id)->inRandomOrder()->get();
+        $ujian = Exam::find($request->exam_id);
+        $now = Carbon::parse(Carbon::now());
+        $quizCount = Soalexam::where('exam_id', $ujian->id)->count();
+        $jawabanCount = Jawabanexam::where('siswa_id', $request->siswaId)
+            ->where('exam_id', $id)
+            ->where('optionexam_id', '!=', null)
+            ->count();
         
+        $quizPanel = Soalexam::where('exam_id', $id)->get();
+        $soal = [];
+        if ($jawabanCount >= $quizCount) {
+            // return 'all soal done pages';
+        } else {
+            
+            $soal = Soalexam::where('exam_id', $id)->with(['OptionMulti'])->first();
+        }
+        if ($request->byPanel) {
+            $soal = Soalexam::where('id', $request->byPanel)->with(['OptionMulti'])->first();
+            $ke = $request->ke;
+        }else {
+            # code...
+            $ke = 1;
+        }
+
+        $opts = ['A', 'B', 'C', 'D', 'E'];
+        return view('fe_page.do_quiz_preview')->with([
+            'quizCount' => $quizCount,
+            'quiz' => $ujian,
+            'q' => $soal,
+            'index' => 0, //$count,
+            'opts' => $opts,
+            'quizPanel' => $quizPanel,
+            'mapelmaster_id' => $mapelmaster_id,
+            'materi_id'=> $materi_id,
+            'ke' => $ke,
+        ]);
     }
 
     public function manajemen_ujian_urai(Request $request)
