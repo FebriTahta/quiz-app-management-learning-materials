@@ -56,6 +56,11 @@ class ExamController extends Controller
         return view('be_page.manajemen_ujian',['mapel'=>$mapel]);
     }
 
+    public function prev_ujian($mapelmaster_id,$materi_id,$ujian_id)
+    {
+        
+    }
+
     public function manajemen_ujian_urai(Request $request)
     {
         if ($request->ajax()) {
@@ -728,11 +733,6 @@ class ExamController extends Controller
         ]);
     }
 
-    // public function __construct(Siswa $siswa)
-    // {
-    //     $this->siswa = $siswa->get();
-    // }
-
     public function daftar_pilihan_ganda(Request $request, $kelas_id)
     {
         $kelas_id = Crypt::decrypt($kelas_id);
@@ -745,23 +745,6 @@ class ExamController extends Controller
         $pilihan_ganda_aktif = Exam::where('exam_status','aktif')->whereHas('kelas', function($query2) use ($kelas){
             $query2->where('kelas_id',$kelas->id);
         })->get();
-        // $siswa_kelas = [];
-        // foreach ($uraian_aktif as $key => $value) {
-        //     # code...
-        //     $x = $value->id;
-        //     $siswa_kelas[] = Siswa::where('kelas_id', $kelas_id)->whereHas('jawabanexamurai', function($q)use($x){
-        //         $q->where('examurai_id', $x);
-        //     })->count();
-        // }
-
-        // $siswa_kelas2 = [];
-        // foreach ($pilihan_ganda_aktif as $key2 => $val) {
-        //     # code...
-        //     $y = $val->id;
-        //     $siswa_kelas2[] = Siswa::where('kelas_id', $kelas_id)->whereHas('jawabanexam', function($q2)use($y){
-        //         $q2->where('examurai_id', $y);
-        //     })->count();
-        // }
         return view('fe_page.daftar_pilihan_ganda',compact('kelas','siswa','pilihan_ganda_aktif','uraian_aktif'));
     }
 

@@ -66,7 +66,7 @@
                                                 @endphp
 
                                                 <a id="btnQuiz-{{ $i+1 }}" href="/do-exam-uraian-next/{{ $s->examurai_id }}/{{ $mapel->id }}/{{ $kelas->id }}/{{ $s->id }}/{{ $i }}"
-                                                    type="button"style="margin: 7px"
+                                                    type="button"style="margin: 7px; width:30px"
                                                     @if ($jawabanku_ada?->jawabanku)
                                                     class="btn btn-sm btn-success"
                                                     @else
@@ -77,7 +77,7 @@
                                                 </a>
                                             @endforeach
                                             <hr>
-                                            <a href="/" style="margin: 7px"
+                                            <a href="/" style="margin: 7px;width:30px"
                                                 class="btn btn-sm btn-block btn-suuccess">FINISH</a>
                                         </div>
                                     </div>

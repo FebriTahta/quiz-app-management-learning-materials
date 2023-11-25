@@ -44,7 +44,7 @@
                                                 @endphp
 
                                                 <a id="btnQuiz-{{ $i+1 }}" href="/periksa-jawaban-uraian-siswa-next/{{ $siswa->id }}/{{ $kelas->id }}/{{ $guru->id }}/{{ $s->examurai_id }}/{{ $s->id }}/{{ $i }}"
-                                                    type="button"style="margin: 7px"
+                                                    type="button"style="margin: 7px; 30px"
                                                     @if ($jawabanku_ada?->jawabanku)
                                                     class="btn btn-sm btn-success"
                                                     @else
@@ -56,7 +56,7 @@
                                             @endforeach
                                             <hr>
                                             
-                                            <a href="/" style="margin: 7px"
+                                            <a href="/" style="margin: 7px; 30px"
                                                 class="btn btn-sm btn-block btn-suuccess">KEMBALI</a>
                                         </div>
                                     </div>
@@ -155,15 +155,16 @@
                                                 <input type="hidden" class="form-control" name="examurai_id" value="{{ $examurai_id }}">
                                                 <input type="hidden" class="form-control" name="soalexamurai_id" value="{{ $q->id }}">
                                                 <input type="hidden" class="form-control" name="status" value="benar">
-                                                <input type="submit" style="width: 150px" class="btn btn-sm btn-success" id="btnadd" value="Jawaban Benar">
+                                                <input type="submit" style="width: 150px" class="btn_submit btn btn-sm btn-success" id="btnadd1" value="Jawaban Benar">
                                             </form>
+
                                             <form action="/submit-periksa-uraian" method="POST" style="margin-bottom: 10px">@csrf
                                                 <input type="hidden" class="form-control" name="siswa_id" value="{{ $siswa->id }}">
                                                 <input type="hidden" class="form-control" name="kelas_id" value="{{ $kelas->id }}">
                                                 <input type="hidden" class="form-control" name="examurai_id" value="{{ $examurai_id }}">
                                                 <input type="hidden" class="form-control" name="soalexamurai_id" value="{{ $q->id }}">
-                                                <input type="hidden" class="form-control" name="status" value="benar">                                                
-                                                <input type="submit" style="width: 150px" class="btn btn-sm btn-danger" id="btnadd" value="Jawaban Salah">
+                                                <input type="hidden" class="form-control" name="status" value="salah">                                                
+                                                <input type="submit" style="width: 150px" class="btn_submit btn btn-sm btn-danger" id="btnadd2" value="Jawaban Salah">
                                             </form>
                                             @endif
                                         </div>

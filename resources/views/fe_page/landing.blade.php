@@ -34,13 +34,19 @@
                     $ada_ujian = [];
                     
                     foreach ($siswa->kelas->exam as $key => $x) {
-                        $exam_akhir = \Carbon\Carbon::parse($x->exam_datetimeend);
+                        $exam_akhir = \Carbon\Carbon::parse($x->exam_datetimeend)->format('Y-m-d H:i:s');
                         if ($exam_akhir > \Carbon\Carbon::now()) {
                             $ada_ujian = $x;
                         }
                     }
+
+                    foreach ($siswa->kelas->examurai as $key => $y) {
+                        $examurai_akhir = \Carbon\Carbon::parse($y->examurai_datetimeend)->format('Y-m-d H:i:s');
+                        if ($examurai_akhir > \Carbon\Carbon::now()) {
+                            $ada_ujian = $x;
+                        }
+                    }
                 @endphp
-                
                 @if(!empty($ada_ujian))
                 <div class="ujian">
                     <div class="alert alert-success alert-block">

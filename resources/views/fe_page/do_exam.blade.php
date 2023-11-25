@@ -76,11 +76,11 @@
                                 {{-- @if (count($q) > 0) --}}
                                 <div class="teacher__top d-md-flex align-items-end justify-content-between mb-20">
                                     <input type="text" hidden id="soalId" name="soalId" value="{{ $q->id }}">
-                                    @if (Str::limit($q->soal_name, 3) == 'be_...')
+                                    @if (Str::limit($q->soalexam_name, 3) == 'be_...')
                                         <div class="teacher__info" style="padding: 0; margin: 0">
                                             <h5>No. {{ $indx }}</h5>
                                             <div class="blog__thumb w-img fix">
-                                                <img src="{{ asset($q->soal_name) }}" alt="">
+                                                <img src="{{ asset($q->soalexam_name) }}" alt="" style="width:100%">
                                             </div>
                                             <br>
                                             <span>"2020 X RPL 1 : Sejarah"</span>
@@ -110,7 +110,11 @@
                                                                 {{ $opts[$key] }}</span>
                                                         </div>
                                                         <div class="form-group col-md-11 col-10">
-                                                            <span>{{ $opt->optionexam_name }}</span>
+                                                            @if (Str::limit($opt->optionexam_name, 3) == 'be_...')
+                                                                <img src="{{ asset($opt->optionexam_name) }}" alt="" style="max-width:100%">
+                                                            @else
+                                                                <span>{{ $opt->optionexam_name }}</span>
+                                                            @endif
                                                         </div>
                                                     @endforeach
                                                 </div>
