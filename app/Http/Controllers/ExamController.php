@@ -33,7 +33,7 @@ class ExamController extends Controller
             $data = Exam::with('soalexam','mapel','kelas')->withCount('soalexam','kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return strtoupper($data->mapel->mapel_name);
+                return '<a href="'.strtoupper($data->mapel->mapel_name).'">'.$data->id.'</a>';
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
@@ -56,9 +56,9 @@ class ExamController extends Controller
         return view('be_page.manajemen_ujian',['mapel'=>$mapel]);
     }
 
-    public function prev_ujian($mapelmaster_id,$exam_id)
+    public function prev_ujian($exam_id)
     {
-        return $mapelmaster_id;
+        return $exam_id;
         // $request->siswaId =  Siswa::where('user_id', Auth::id())->first()->id;
         $request->siswaId = auth()->user()->id;
         $request->exam_id = $id;
@@ -88,15 +88,15 @@ class ExamController extends Controller
         }
 
         $opts = ['A', 'B', 'C', 'D', 'E'];
-        return view('fe_page.do_quiz_preview')->with([
+        return view('fe_page.do_exam_preview')->with([
             'quizCount' => $quizCount,
             'quiz' => $ujian,
             'q' => $soal,
             'index' => 0, //$count,
             'opts' => $opts,
             'quizPanel' => $quizPanel,
-            'mapelmaster_id' => $mapelmaster_id,
-            'materi_id'=> $materi_id,
+            // 'mapelmaster_id' => $mapelmaster_id,
+            // 'materi_id'=> $materi_id,
             'ke' => $ke,
         ]);
     }

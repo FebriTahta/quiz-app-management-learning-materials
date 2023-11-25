@@ -121,14 +121,7 @@
                                                                     class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
                                                                     <div class="course__curriculum-info">
                                                                         <p>Deskripsi :</p>
-                                                                        <h3> <span>Start : {{ \Carbon\Carbon::parse($item->examurai_datetimestart)->format('l - m F') }} ({{ $item->examurai_lamapengerjaan }} menit)</span></h3><br>
-                                                                        {{-- <span>Keterangan :
-                                                                            @if ($item->jawabanexamurai->count() < 1)
-                                                                                Belum ada yang mengerjakan dikerjakan
-                                                                            @else
-                                                                                Dikerjakan {{ $siswa_kelas[$key] }} siswa
-                                                                            @endif
-                                                                        </span> --}}
+                                                                        <h3> <span>Start : {{ \Carbon\Carbon::parse($item->examurai_datetimestart)->format('l - d M Y') }} ({{ $item->examurai_lamapengerjaan }} menit)</span></h3><br>
                                                                     </div>
                                                                     <div class="course__curriculum-meta">
                                                                         @php
@@ -183,7 +176,7 @@
                                                                     class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
                                                                     <div class="course__curriculum-info">
                                                                         <p>Deskripsi :</p>
-                                                                        <h3> <span>Start : {{ \Carbon\Carbon::parse($item->exam_datetimestart)->format('l - m F') }} ({{ $item->exam_lamapengerjaan }} menit)</span></h3><br>
+                                                                        <h3> <span>Start : {{ \Carbon\Carbon::parse($item->exam_datetimestart)->format('l - d M Y') }} ({{ $item->exam_lamapengerjaan }} menit)</span></h3><br>
                                                                         {{-- <span>Keterangan :
                                                                             @if ($item->jawabanexam->count() < 1)
                                                                                 Belum ada yang mengerjakan dikerjakan
