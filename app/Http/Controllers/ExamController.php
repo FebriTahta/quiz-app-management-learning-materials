@@ -173,7 +173,7 @@ class ExamController extends Controller
             $soal = Soalexam::where('exam_id', $request->id)->get();
             foreach ($soal as $key => $value) {
                 # banyak soal code...
-                $option = Optionexam::where('soalexam_id', $value)->delete();
+                $option = Optionexam::where('soalexam_id', $value->id)->delete();
             }
             Soalexam::where('exam_id', $request->id)->delete();
         }
