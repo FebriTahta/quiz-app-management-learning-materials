@@ -249,7 +249,7 @@ Route::get('/cek-siswa/{kelas_id}',[PelajaranController::class,'cek_siswa']);
 Route::get('/do-quiz/{mapelmaster_id}/{materi_id}/{ujian_id}', [QuizController::class, 'doQuiz'])->name('doQuiz');
 Route::post('/post-quiz', [QuizController::class, 'postQuiz'])->name('postQuiz');
 Route::get('/prev-quiz/{mapelmaster_id}/{materi_id}/{ujian_id}', [QuizController::class, 'prevQuiz'])->name('prevQuiz');
-Route::get('/prev-exam/{exam_id}', [ExamController::class, 'prev_ujian']);
+Route::get('/prev-exam/{exam_id}', [ExamController::class, 'prev_exam'])->name('doExamPrev');
 Route::post('/ujianStore', [QuizController::class, 'ujianStore'])->name('ujianStore');
 Route::post('/remove-quiz',[QuizController::class,'remove_quiz']);
 // Route::post('/post-quiz', [QuizController::class, 'postQuiz'])->name('postQuiz');

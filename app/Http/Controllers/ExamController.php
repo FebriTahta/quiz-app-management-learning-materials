@@ -33,7 +33,7 @@ class ExamController extends Controller
             $data = Exam::with('soalexam','mapel','kelas')->withCount('soalexam','kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return '<a href="'.strtoupper($data->mapel->mapel_name).'">'.$data->id.'</a>';
+                return '<a href="/prev-exam/'.$data->id.'">'.strtoupper($data->mapel->mapel_name).'</a>';
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
@@ -56,12 +56,12 @@ class ExamController extends Controller
         return view('be_page.manajemen_ujian',['mapel'=>$mapel]);
     }
 
-    public function prev_ujian($exam_id)
+    public function prev_exam($exam_id, Request $request)
     {
-        return $exam_id;
+        // return $exam_id;
         // $request->siswaId =  Siswa::where('user_id', Auth::id())->first()->id;
-        $request->siswaId = auth()->user()->id;
-        $request->exam_id = $id;
+        // $request->siswaId = auth()->user()->id;
+        $id = $request->exam_id;
         $quiz = Soalexam::where('exam_id', $id)->inRandomOrder()->get();
         $ujian = Exam::find($request->exam_id);
         $now = Carbon::parse(Carbon::now());
@@ -77,10 +77,10 @@ class ExamController extends Controller
             // return 'all soal done pages';
         } else {
             
-            $soal = Soalexam::where('exam_id', $id)->with(['OptionMulti'])->first();
+            $soal = Soalexam::where('exam_id', $id)->with(['OptionExam'])->first();
         }
         if ($request->byPanel) {
-            $soal = Soalexam::where('id', $request->byPanel)->with(['OptionMulti'])->first();
+            $soal = Soalexam::where('id', $request->byPanel)->with(['OptionExam'])->first();
             $ke = $request->ke;
         }else {
             # code...
