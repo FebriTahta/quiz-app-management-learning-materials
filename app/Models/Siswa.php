@@ -65,4 +65,9 @@ class Siswa extends Model
     {
         return $this->hasMany(Jawabanexamurai::class);
     }
+
+    public function nilaiexam()
+    {
+        return $this->hasmany(NilaiExam::class);
+    }
 }

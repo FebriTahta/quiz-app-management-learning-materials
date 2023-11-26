@@ -91,6 +91,10 @@ Route::group(['middleware' => ['auth', 'CheckRole:admin']], function () {
         Route::get('/halaman-unduh-hasil-uraian','halaman_unduh_hasil_uraian');
         Route::get('/proses-data-ujian-uraian/{kelas_id}/{tgl_awal}/{tgl_akhir}','proses_data_ujian_uraian');
         Route::post('/unduh-hasil-ujian-uraian','unduh_hasil_ujian_uraian');
+
+        Route::get('/halaman-unduh-hasil-exam','halaman_unduh_hasil_exam');
+        Route::get('/proses-data-ujian-pilgan/{kelas_id}/{tgl_awal}/{tgl_akhir}','proses_data_ujian_pilgan');
+        Route::post('/unduh-hasil-ujian-pilgan','unduh_hasil_ujian_pilgan');
     });
 
     Route::controller(UserController::class)->group(function () {
@@ -275,6 +279,7 @@ Route::get('/daftar-uraian-siswa/{examurai_id}/{kelas_id}/{guru_id}',[ExamContro
 Route::get('/periksa-jawaban-uraian-siswa/{siswa_id}/{kelas_id}/{guru_id}/{examurai_id}',[ExamController::class,'periksa_jawaban_uraian_siswa']);
 Route::get('/periksa-jawaban-uraian-siswa-next/{siswa_id}/{kelas_id}/{guru_id}/{examurai_id}/{id}/{nomorurut}',[ExamController::class,'periksa_jawaban_uraian_siswa_next']);
 Route::post('/submit-periksa-uraian',[ExamController::class,'sumbit_periksa_uraian']);
+Route::get('/submit-nilai-exam/{siswa_id}/{exam_id}/{kelas_id}/{mapel_id}',[ExamController::class,'submit_nilai_exam']);
 
 
 

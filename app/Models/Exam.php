@@ -32,4 +32,9 @@ class Exam extends Model
     {
         return $this->hasMany(Jawabanexam::class);
     }
+
+    public function nilaiexam()
+    {
+        return $this->hasmany(NilaiExam::class);
+    }
 }

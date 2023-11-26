@@ -77,4 +77,9 @@ class Kelas extends Model
     {
         return $this->belongsToMany(Examurai::class);
     }
+
+    public function nilaiexam()
+    {
+        return $this->hasmany(NilaiExam::class);
+    }
 }

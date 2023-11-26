@@ -15,12 +15,14 @@ use App\Models\Optionexam;
 use App\Models\Jawabanexamurai;
 use App\Models\Siswa;
 use App\Models\Guru;
+use App\Models\NilaiExam;
 use Auth;
 use Excel;
 use Crypt;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 use App\Exports\UraianKelasExport;
+use App\Exports\PilganKelasExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Writer\ExcelWriter;
 
@@ -787,7 +789,6 @@ class ExamController extends Controller
 
         return response()->json([
             'status'=>200,
-            // 'message'=> 'Ranking kelas telah di update'.implode(',',$rank).'-'.implode(',',$tes).'-'.$lihat
             'message'=> 'Ranking kelas telah di update'
         ]);
     }
@@ -965,6 +966,12 @@ class ExamController extends Controller
         return view('be_page.unduh_hasil_uraian',compact('kelas'));
     }
 
+    public function halaman_unduh_hasil_exam()
+    {
+        $kelas = Kelas::with(['angkatan','jurusan'])->get();
+        return view('be_page.unduh_hasil_exam',compact('kelas'));
+    }
+
     public function proses_data_ujian_uraian($kelas_id, $tgl_awal, $tgl_akhir)
     {
         $kelas = Kelas::findOrFail($kelas_id);
@@ -979,6 +986,25 @@ class ExamController extends Controller
         return DataTables::of($examurai)
         ->addColumn('tanggal',function($examurai){
             return \Carbon\Carbon::parse($examurai->examurai_datetimestart)->parse('Y');
+        })
+        ->rawColumns(['tanggal'])
+        ->make(true);
+    }
+
+    public function proses_data_ujian_pilgan($kelas_id, $tgl_awal, $tgl_akhir)
+    {
+        $kelas = Kelas::findOrFail($kelas_id);
+        $exam_id = [];
+        foreach ($kelas->exam as $key => $value) {
+            # code...
+            $exam_id[] = $value->id;
+        }
+
+        $exam = Exam::whereIn('id',$exam_id)
+        ->whereBetween('exam_datetimestart',[$tgl_awal,$tgl_akhir])->get();
+        return DataTables::of($exam)
+        ->addColumn('tanggal',function($exam){
+            return \Carbon\Carbon::parse($exam->exam_datetimestart)->parse('Y');
         })
         ->rawColumns(['tanggal'])
         ->make(true);
@@ -1017,6 +1043,45 @@ class ExamController extends Controller
         return Excel::download( $export, 'jawaban_uraian_'.$kelas->angkatan->tingkat->tingkat_name.' '.$kelas->jurusan->jurusan_name.' '.$kelas->kelas_name.'.xlsx',ExcelExcel::XLSX);
     }
 
+    public function unduh_hasil_ujian_pilgan(Request $request)
+    {
+        $kelas_id = $request->kelas_id;
+        $tgl_awal = $request->tgl_awal;
+        $tgl_akhir = $request->tgl_akhir;
+
+        $kelas = Kelas::findOrFail($kelas_id);
+        $exam_id = [];
+        foreach ($kelas->exam as $key => $value) {
+            # code...
+            $exam_id[] = $value->id;
+        }
+
+        // $exam = Exam::whereHas('kelas', function($q) use ($kelas){
+        //     $q->where('kelas_id', $kelas->id);
+        // })->whereIn('id',$exam_id)
+        // ->whereBetween('exam_datetimestart',[$tgl_awal,$tgl_akhir])->get();
+
+        $exam = NilaiExam::whereHas('kelas', function($q) use ($kelas){
+            $q->where('kelas_id', $kelas->id);
+        })->whereIn('exam_id', $exam_id)
+        ->with('exam', function($q) use($tgl_awal,$tgl_akhir){
+            $q->whereBetween('exam_datetimestart',[$tgl_awal,$tgl_akhir]);
+        })->orderBy('mapel_id', 'asc')->get();
+
+        // $exam_id2= [];
+        // foreach ($exam as $key => $val) {
+        //     # code...
+        //     $exam_id2[] = $val->id;
+        // }
+
+        // $jawaban  = Jawabanexam::whereIn('exam_id', $exam_id2)->where('kelas_id',$kelas->id)->orderBy('siswa_id','asc')
+        // ->orderBy('soalexam_id','asc')->get();
+        $jawaban = $exam;
+        $export = new PilganKelasExport($jawaban);
+
+        return Excel::download( $export, 'jawaban_pilihan_ganda_'.$kelas->angkatan->tingkat->tingkat_name.' '.$kelas->jurusan->jurusan_name.' '.$kelas->kelas_name.'.xlsx',ExcelExcel::XLSX);
+    }
+
     public function sumbit_periksa_uraian(Request $request)
     {
         if ($request->status == 'benar') {
@@ -1041,6 +1106,56 @@ class ExamController extends Controller
                             ['nilaiku'=>0]
                           );
             return redirect()->back();
+        }
+    }
+
+    public function submit_nilai_exam(Request $request, $siswa_id, $exam_id, $kelas_id, $mapel_id)
+    {
+        $jawabanku  = Jawabanexam::where('siswa_id', $siswa_id)->where('exam_id', $exam_id)
+                    ->where('kelas_id', $kelas_id)->where('mapel_id', $mapel_id)
+                    ->get();
+        // jika ada jawaban
+        if ($jawabanku) {
+            $nilaiku= NilaiExam::where('siswa_id', $siswa_id)->where('exam_id', $exam_id)
+                    ->where('kelas_id', $kelas_id)->where('mapel_id', $mapel_id)
+                    ->first();
+            $jumlahSoal = Soalexam::where('exam_id', $exam_id)->count();
+            $jawaban = [];
+            foreach ($jawabanku as $key => $value) {
+                if ($value->jawabanku == 1) {
+                    $jawaban[] = $value->jawabanku;
+                }
+            }
+            $total_jawaban_benar = array_sum($jawaban);
+            $total_nilai = round($total_jawaban_benar/$jumlahSoal  * 100);
+
+            if (empty($nilaiku)) {
+                # create new code...
+                $nilaiku = NilaiExam::create([
+                    'siswa_id' => $siswa_id,
+                    'exam_id' => $exam_id,
+                    'kelas_id' => $kelas_id,
+                    'mapel_id' => $mapel_id,
+                    'nilai' => $total_nilai
+                ]);
+                return response()->json([
+                    'nilai' => $nilaiku
+                ]);   
+                return response()->json([
+                    'status' => 201,
+                    'message' => 'mengakumulasi nilai ujian'
+                ]);
+            }else {
+                # update code...
+                $nilaiku->update([
+                    'nilai' => $total_nilai
+                ]);
+                return response()->json([
+                    'status' => 201,
+                    'message' => 'mengakumulasi pembaruan nilai ujian'
+                ]);
+            }
+            
         }
     }
 }

@@ -56,7 +56,7 @@
                                                 @endif
                                             @endforeach
                                             <hr>
-                                            <a href="/" style="margin: 7px"
+                                            <a href="#finish_exam" style="margin: 7px" id="finish_exam"
                                                 class="btn btn-sm btn-block btn-suuccess">FINISH</a>
                                         </div>
                                     </div>
@@ -122,6 +122,10 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <input type="hidden" value="{{auth()->user()->siswa->id}}" id="siswa_id">
+                                <input type="hidden" value="{{$quiz->id}}" id="exam_id">
+                                <input type="hidden" value="{{$kelas_id}}" id="kelas_id">
+                                <input type="hidden" value="{{$mapel_id}}" id="mapel_id">
                                 {{-- <div class="navigation-soal" style="margin-top: 20px">
                                     @if ($index > 0)
                                         <a href="#" onclick="showQuiz({{ $index - 1 }})"
@@ -164,6 +168,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script>
+       
         function startQuiz() {
             var countDownDate = new Date(@json($quiz->exam_datetimeend)).getTime();
 
@@ -187,15 +192,29 @@
 
                 // If the count down is over, write some text 
                 if (distance < 0) {
+                    var siswa_id = $('#siswa_id').val()
+                    var exam_id = $('#exam_id').val()
+                    var kelas_id = $('#kelas_id').val()
+                    var mapel_id = $('#mapel_id').val()
                     clearInterval(x);
                     document.getElementById("counter").innerHTML = "Tersisa: EXPIRED";
-                    swal({
-                        title: "Waktu habis",
-                        html: 'Ujian berakhir. Redirecting... ',
-                        type: "info",
+                    $.ajax({
+                        type: "GET",
+                        url: '/submit-nilai-exam/'+siswa_id+'/'+exam_id+'/'+kelas_id+'/'+mapel_id,
+                        success: function(response) {
+                            toastr.success(response.message);
+                            if (response.message) {
+                                window.location.replace("/");
+                                swal({
+                                    title: "Waktu habis",
+                                    html: 'Ujian berakhir. Redirecting... ',
+                                    type: "info",
+                                });
+                                document.getElementById("formQuiz").submit();
+                                window.location.href= '/';
+                            }
+                        }
                     });
-                    document.getElementById("formQuiz").submit();
-                    window.location.href= '/';
                 }
             }, 1000);
 
@@ -208,7 +227,46 @@
         };
 
         $(document).on("keydown", this.disableF5);
-        $(document).ready(function() {});
+
+        $(document).ready(function() {
+            var siswa_id = $('#siswa_id').val()
+            var exam_id = $('#exam_id').val()
+            var kelas_id = $('#kelas_id').val()
+            var mapel_id = $('#mapel_id').val()
+            $('#finish_exam').on('click', function (e) {
+                
+                e.preventDefault()
+                swal({
+                    title: 'Finish!',
+                    text: "Menyelesaikan proses akumulasi nilai Ujian!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Kirim!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.value == true) {
+                        $.ajax({
+                            type: "GET",
+                            url: '/submit-nilai-exam/'+siswa_id+'/'+exam_id+'/'+kelas_id+'/'+mapel_id,
+                            success: function(response) {
+                                toastr.success(response.message);
+                                if (response.message) {
+                                    window.location.replace("/");
+                                }
+                            }
+                        });
+                    }
+                })
+            })
+        });
+
+        function akumulasi_nilai()
+        {
+
+        }
+        
         this.startQuiz();
 
         function postExam(ujianId, soalId, jawabanId, optionexam_true, mapel_id, kelas_id) {
@@ -242,5 +300,7 @@
                 }
             });
         }
+
+        
     </script>
 @endsection

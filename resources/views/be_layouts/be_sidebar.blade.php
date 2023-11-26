@@ -189,7 +189,7 @@
                             <li><a href="/admin-manajemen-ujian-urai"><i class="icon icon-circle-o"></i>Ujian Uraian</a></li>
                             <li><a href="/daftar-ranking-kelas"><i class="icon icon-circle-o"></i>Ranking Kelas</a></li>
                             <li><a href="/halaman-unduh-hasil-uraian"><i class="icon icon-circle-o"></i>Unduh Hasil Uraian</a></li>
-                            <li><a href="/admin-download-data-ujian-pilihan"><i class="icon icon-circle-o"></i>Unduh Hasil Pilihan Ganda</a></li>
+                            <li><a href="/halaman-unduh-hasil-exam"><i class="icon icon-circle-o"></i>Unduh Hasil Pilihan Ganda</a></li>
                         </ul>
                     </li>
                     {{--  --}}

@@ -35,6 +35,7 @@
                                                     habis</span></h4>
                                         </div>
                                         <div class="events__sponsor-info button-nav">
+
                                             @foreach ($soal as $i => $s)
                                                 @php
                                                     $jawabanku_ada = \App\Models\Jawabanexamurai::where('kelas_id', $kelas->id)
