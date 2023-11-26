@@ -35,29 +35,6 @@
                                                     habis</span></h4>
                                         </div>
                                         <div class="events__sponsor-info button-nav">
-                                            {{-- @foreach ($quizPanel as $i => $panel)
-                                                @if ($panel->optionexam_id == null)
-                                                    <a href="{{ route('doExam', [
-                                                        'exam_id' => $quiz->id,
-                                                        'byPanel' => $panel->soalexam_id,
-                                                        'mapel_id' => $mapel_id,
-                                                        'kelas_id'=> $kelas_id,
-                                                    ]) }}"
-                                                        id="btnQuiz-{{ $panel->soalexam_id }}" type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-outline-secondary"> <span
-                                                            style="font-size: 12px">{{ $i + 1 }}</span></a>
-                                                @else
-                                                    <a href="{{ route('doExam', [
-                                                        'exam_id' => $quiz->id,
-                                                        'byPanel' => $panel->soalexam_id,
-                                                        'mapel_id' => $mapel_id,
-                                                        'kelas_id'=> $kelas_id,
-                                                    ]) }}"type="button"
-                                                        style="margin: 7px" class="btn btn-sm btn-success">
-                                                        <span style="font-size: 12px">{{ $i + 1 }}</span> </a>
-                                                @endif
-                                            @endforeach --}}
-
                                             @foreach ($soal as $i => $s)
                                                 @php
                                                     $jawabanku_ada = \App\Models\Jawabanexamurai::where('kelas_id', $kelas->id)

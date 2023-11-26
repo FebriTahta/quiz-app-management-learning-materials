@@ -250,6 +250,8 @@ Route::get('/do-quiz/{mapelmaster_id}/{materi_id}/{ujian_id}', [QuizController::
 Route::post('/post-quiz', [QuizController::class, 'postQuiz'])->name('postQuiz');
 Route::get('/prev-quiz/{mapelmaster_id}/{materi_id}/{ujian_id}', [QuizController::class, 'prevQuiz'])->name('prevQuiz');
 Route::get('/prev-exam/{exam_id}', [ExamController::class, 'prev_exam'])->name('doExamPrev');
+Route::get('/prev-exam-uraian-next/{examurai_id}', [ExamController::class, 'prev_exam_urai'])->name('doExamuraiPrev');
+Route::get('/prev-exam-uraian-next/{examurai_id}/{next}/{nomorurut}', [ExamController::class, 'prev_exam_urai_next'])->name('doExamuraiPrevNext');
 Route::post('/ujianStore', [QuizController::class, 'ujianStore'])->name('ujianStore');
 Route::post('/remove-quiz',[QuizController::class,'remove_quiz']);
 // Route::post('/post-quiz', [QuizController::class, 'postQuiz'])->name('postQuiz');

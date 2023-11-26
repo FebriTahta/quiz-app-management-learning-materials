@@ -85,7 +85,7 @@
                                     @else
                                         <div class="teacher__info" style="padding: 0; margin: 0">
                                             <h5>Preview Soal. {{ $ke }}</h5>
-                                            <h5 style="font-size: 28px" class="text-capitalize">{{ $q->soalexam_name }}
+                                            <h5 style="font-size: 16px" class="text-capitalize">{{ $q->soalexam_name }}
                                             </h5>
                                         </div>
                                     @endif

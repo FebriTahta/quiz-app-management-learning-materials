@@ -33,7 +33,7 @@ class ExamController extends Controller
             $data = Exam::with('soalexam','mapel','kelas')->withCount('soalexam','kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return '<a href="/prev-exam/'.$data->id.'">'.strtoupper($data->mapel->mapel_name).'</a>';
+                return '<a href="/prev-exam/'.$data->id.'" target="_blank">'.strtoupper($data->mapel->mapel_name).'</a>';
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
@@ -108,7 +108,7 @@ class ExamController extends Controller
             $data = Examurai::with('soalexamurai','mapel','kelas')->withCount('kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return strtoupper($data->mapel->mapel_name);
+                return '<a href="/prev-exam-uraian-next/'.$data->id.'" target="_blank">'.strtoupper($data->mapel->mapel_name).'</a>';
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
@@ -129,6 +129,25 @@ class ExamController extends Controller
 
         $mapel = Mapel::get();
         return view('be_page.manajemen_ujian2',['mapel'=>$mapel]);
+    }
+
+    public function prev_exam_urai(Request $request, $examurai_id)
+    {
+        $q = Soalexamurai::where('examurai_id', $examurai_id)->limit(1)->get();
+        $soal = Soalexamurai::where('examurai_id', $examurai_id)->get();
+        $next = null;
+        $nomorurut = null;
+        return view('fe_page.prev_examurai',compact('q','soal','next','nomorurut'));
+    }
+
+    public function prev_exam_urai_next(Request $request, $examurai_id, $next, $nomorurut)
+    {
+        // next = id soal
+        $q = Soalexamurai::where('id', $next)->limit(1)->get();
+        $soal = Soalexamurai::where('examurai_id', $examurai_id)->get();
+        $next = $next;
+        $nomorurut = $nomorurut;
+        return view('fe_page.prev_examurai',compact('q','soal','next','nomorurut'));
     }
 
     public function total_exam(){

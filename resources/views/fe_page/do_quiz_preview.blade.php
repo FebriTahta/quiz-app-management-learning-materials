@@ -83,7 +83,6 @@
                                                 <img src="{{ asset($q->soal_name) }}" alt="">
                                             </div>
                                             <br>
-                                            
                                         </div>
                                     @else
                                         <div class="teacher__info" style="padding: 0; margin: 0">
