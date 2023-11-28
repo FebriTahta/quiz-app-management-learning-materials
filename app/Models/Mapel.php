@@ -40,6 +40,11 @@ class Mapel extends Model
         return $this->hasMany(Examurai::class);
     }
 
+    public function exam()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
     public function nilaiexam()
     {
         return $this->hasmany(NilaiExam::class);

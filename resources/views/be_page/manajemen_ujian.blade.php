@@ -535,7 +535,8 @@
                 processing: true,
                 serverSide: true,
                 ajax: "/admin-manajemen-ujian",
-                columns: [{
+                columns: [
+                    {
                         "data": null,
                         "sortable": false,
                         render: function(data, type, row, meta) {
@@ -544,7 +545,7 @@
                     },
                     {
                         data: 'mapel',
-                        name: 'mapel.mapel_name'
+                        name: 'mapel',
                     },
                     {
                         data: 'kelas',

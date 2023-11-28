@@ -544,7 +544,7 @@
                     },
                     {
                         data: 'mapel',
-                        name: 'mapel.mapel_name'
+                        name: 'mapel'
                     },
                     {
                         data: 'kelas',

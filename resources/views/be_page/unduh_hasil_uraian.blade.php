@@ -37,7 +37,7 @@
                                                 <select name="kelas_id" id="kelas_id" class="form-control" style="width: 100%" required>
                                                     <option value="" style="width: 100%">:: Pilih Kelas ::</option>
                                                     @foreach ($kelas as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->angkatan->tingkat->tingkat_name }}</option>
+                                                        <option value="{{ $item->id }}">{{$item->kelas_name}} {{ $item->angkatan->angkatan_name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

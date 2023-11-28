@@ -32,17 +32,19 @@ class ExamController extends Controller
     {
         if ($request->ajax()) {
             # code...
-            $data = Exam::with('soalexam','mapel','kelas')->withCount('soalexam','kelas')->get();
+            $data = Exam::with(['soalexam','mapel','kelas'])
+            ->orderBy('id','desc')->withCount('soalexam','kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return '<a href="/prev-exam/'.$data->id.'" target="_blank">'.strtoupper($data->mapel->mapel_name).'</a>';
+                return $data->mapel->mapel_name;
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
                     data-id='.$data->id.'>'.$data->kelas->count().' - KELAS'.'</a>';
             })
             ->addColumn('opsi', function($data){
-                $btn  = ' <button class="btn btn-xs btn-danger" data-id="'.$data->id.'"
+                $btn  = '<a href="/prev-exam/'.$data->id.'" target="_blank" class="btn btn-xs btn-success"><i style="margin-left: 15px" class="icon icon-eye"></i></a> ';
+                $btn .= ' <button class="btn btn-xs btn-danger" data-id="'.$data->id.'"
                 data-toggle="modal" data-target="#modalhapusexam"><i style="margin-left: 15px" class="icon icon-trash"></i></button>';
                 $btn .= ' <button class="btn btn-xs btn-info" data-id="'.$data->id.'" data-mapel_id="'.$data->mapel_id.'"
                 data-exam_jenis="'.$data->exam_jenis.'" data-exam_lamapengerjaan="'.$data->exam_lamapengerjaan.'" data-exam_datetimestart="'.$data->exam_datetimestart.'"
@@ -107,17 +109,19 @@ class ExamController extends Controller
     {
         if ($request->ajax()) {
             # code...
-            $data = Examurai::with('soalexamurai','mapel','kelas')->withCount('kelas')->get();
+            $data = Examurai::with(['soalexamurai','mapel','kelas'])
+            ->orderBy('id','desc')->withCount('kelas')->get();
             return DataTables::of($data)
             ->addColumn('mapel',function($data){
-                return '<a href="/prev-exam-uraian-next/'.$data->id.'" target="_blank">'.strtoupper($data->mapel->mapel_name).'</a>';
+                return $data->mapel->mapel_name;
             })
             ->addColumn('kelas',function($data){
                 return '<a href="#" data-toggle="modal" data-target="#modalkelas"
                     data-id='.$data->id.'>'.$data->kelas->count().' - KELAS'.'</a>';
             })
             ->addColumn('opsi', function($data){
-                $btn  = ' <button class="btn btn-xs btn-danger" data-id="'.$data->id.'"
+                $btn  = '<a href="/prev-exam-uraian-next/'.$data->id.'" target="_blank" class="btn btn-xs btn-success"><i style="margin-left: 15px" class="icon icon-eye"></i></a> ';
+                $btn .= ' <button class="btn btn-xs btn-danger" data-id="'.$data->id.'"
                 data-toggle="modal" data-target="#modalhapusexam"><i style="margin-left: 15px" class="icon icon-trash"></i></button>';
                 $btn .= ' <button class="btn btn-xs btn-info" data-id="'.$data->id.'" data-mapel_id="'.$data->mapel_id.'"
                 data-exam_jenis="'.$data->examurai_jenis.'" data-exam_lamapengerjaan="'.$data->examurai_lamapengerjaan.'" data-exam_datetimestart="'.$data->examurai_datetimestart.'"
