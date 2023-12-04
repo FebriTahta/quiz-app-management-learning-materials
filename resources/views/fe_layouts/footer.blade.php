@@ -120,7 +120,7 @@
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
 {{-- <script type="module" src="{{ asset('app.js') }}"></script> <!-- SweetAlert Plugin Js -->  --}}
 @yield('script')
-@vite(['resources/js/app.js'])
+{{-- @vite(['resources/js/app.js']) --}}
 </body>
 
 </html>
