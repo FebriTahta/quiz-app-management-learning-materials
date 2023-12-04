@@ -83,18 +83,18 @@
                                                 <img src="{{ asset($q->soalexam_name) }}" alt="" style="width:100%">
                                             </div>
                                             <br>
-                                            <span>"2020 X RPL 1 : Sejarah"</span>
+                                            <span></span>
                                         </div>
                                     @else
                                         <div class="teacher__info" style="padding: 0; margin: 0">
                                             <h5>No. {{ $index }}</h5>
-                                            <h5 style="font-size: 28px" class="text-capitalize">{{ $q->soalexam_name }}
+                                            <h5 style="font-size: 16px" class="text-capitalize">{{ $q->soalexam_name }}
                                             </h5>
-                                            <span>"2020 X RPL 1 : Sejarah"</span>
+                                            <span></span>
                                         </div>
                                     @endif
                                 </div>
-                                <h4 style="font-size: 18px">Pilihan Jawaban : {{ $kelas_id }}</h4>
+                                <h4 style="font-size: 16px">Pilihan Jawaban : {{ $kelas_id }}</h4>
                                 <div class="soal_multi">
                                     <h4 style="font-weight: 400"></h4>
                                     <div class="option">
