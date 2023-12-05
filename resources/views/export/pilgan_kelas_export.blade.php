@@ -12,10 +12,15 @@
     </style>
 </head>
 <body>
+    @if($jawaban !== null)
     <table>
         <thead style="font-weight: bold; text-transform: uppercase">
             <tr>
-                <th rowspan="4" colspan="10">DATA HASIL PILIHAN GANDA. KELAS : {{strtoupper($jawaban[0]->kelas->kelas_name)}} <br>
+                <th rowspan="4" colspan="10">DATA HASIL PILIHAN GANDA. KELAS : 
+                    @isset ($jawaban[0])
+                    {{strtoupper($jawaban[0]->kelas->kelas_name)}} 
+                    @endisset
+                    <br>
                     @php
                         $start = $jawaban->first();
                         $last  = $jawaban->last();
@@ -77,5 +82,6 @@
             @endforeach
         </tbody>
     </table>
+    @endif
 </body>
 </html>
