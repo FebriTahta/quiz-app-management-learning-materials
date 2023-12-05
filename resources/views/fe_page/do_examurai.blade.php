@@ -24,7 +24,6 @@
                                             @php
                                                 $soal_first = $soal->first();
                                             @endphp
-                                            <h4>{{ \Carbon\Carbon::parse($soal_first->examurai->examurai_datetimeend)->format('d F Y - h:i') }} ({{ $soal_first->examurai->examurai_lamapengerjaan }}:00 MENIT)</h4>
                                             <input type="hidden" id="waktu_selesai" value="{{ $soal_first->examurai->examurai_datetimeend }}">
                                             <h5 id="counter"></h5>
                                         </h3>
@@ -46,17 +45,16 @@
                                                 <a id="btnQuiz-{{ $i+1 }}" href="/do-exam-uraian-next/{{ $s->examurai_id }}/{{ $mapel->id }}/{{ $kelas->id }}/{{ $s->id }}/{{ $i }}"
                                                     type="button"style="margin: 7px; width:30px"
                                                     @if ($jawabanku_ada?->jawabanku)
-                                                    class="btn btn-sm btn-success"
+                                                    class="btn btn-sm btn-success soalke-{{$i+1}}"
                                                     @else
-                                                    class="btn btn-sm btn-outline-secondary"
+                                                    class="btn btn-sm btn-outline-secondary soalke-{{$i+1}}"
                                                     @endif
                                                     ><span
                                                     style="font-size: 12px">{{ $i + 1 }}</span>
                                                 </a>
                                             @endforeach
                                             <hr>
-                                            <a href="/" style="margin: 7px;width:30px"
-                                                class="btn btn-sm btn-block btn-suuccess">FINISH</a>
+                                            <a href="/" class="finish_exam btn btn-sm btn-success" style="margin: 7px;min-width:100px">Finish <i class="fa fa-flag"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -70,30 +68,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xxl-8 col-xl-8 col-lg-8">
+                        <div class="col-xxl-9 col-xl-9 col-lg-9">
                             <div class="teacher__wrapper events__sidebar-widget white-bg">
-                                {{-- @if (count($q) > 0) --}}
                                 @if (count($q) > 0)
                                     @foreach ($q as $key => $q)
                                         <div class="teacher__top d-md-flex align-items-end justify-content-between mb-20">
-                                            <input type="text" hidden id="soalId" name="soalId"
-                                                value="{{ $q->id }}">
                                             @if (Str::limit($q->soalexam_name, 3) == 'be_...')
                                                 <div class="teacher__info" style="padding: 0; margin: 0">
                                                     @if ($nomorurut !== null)
-                                                        <h5>No. {{ $nomorurut + 1 }}</h5>
+                                                        <h5 class="mb-20">No. {{ $nomorurut + 1 }}</h5>
                                                     @else
-                                                        <h5>No. {{ $key + 1 }}</h5> 
+                                                        <h5 class="mb-20">No. {{ $key + 1 }}</h5> 
                                                     @endif
 
                                                     <div class="blog__thumb w-img fix">
                                                         <img src="{{ asset($q->soalexam_name) }}" alt="">
                                                     </div>
-                                                    <br>
-                                                    <span>"{{ $kelas->angkatan->angkatan_name }}
-                                                        {{ $kelas->angkatan->tingkat->tingkat_name }}
-                                                        {{ $kelas->jurusan->jurusan_name }} {{ $kelas->kelas_name }} :
-                                                        {{ $mapel->mapel_name }}"</span>
                                                 </div>
                                             @else
                                                 <div class="teacher__info" style="padding: 0; margin: 0">
@@ -102,17 +92,47 @@
                                                     @else
                                                         <h5>No. {{ $key + 1 }}</h5>
                                                     @endif
-                                                    <h5 style="font-size: 16px" class="text-capitalize">
+                                                    <h5 style="font-size: 14px" class="text-capitalize">
                                                         {{ $q->soalexam_name }}
                                                     </h5>
-                                                    <span>"{{ $kelas->angkatan->angkatan_name }}
-                                                        {{ $kelas->angkatan->tingkat->tingkat_name }}
-                                                        {{ $kelas->jurusan->jurusan_name }} {{ $kelas->kelas_name }} :
-                                                        {{ $mapel->mapel_name }}"</span>
                                                 </div>
                                             @endif
                                         </div>
+                                        <br>
+                                        <div class="navigator mb-50">
+                                            @if ($nomorurut !== null)
+                                                @if ($nomorurut+1 > 1)
+                                                <button class="btn btn-sm btn-primary" onclick=soalke({{$nomorurut}}) style="float: left; min-width:100px">
+                                                        <i class="fa fa-chevron-circle-left"></i> Prev
+                                                    </button>
+                                                @endif
+                                                @if ($nomorurut+1 < $soal->count())
+                                                    <button  class="btn btn-sm btn-primary" style="float: right;min-width:100px" onclick=soalke({{$nomorurut+2}})>
+                                                        Next <i class="fa fa-chevron-circle-right"></i>
+                                                    </button>
+                                                @else
+                                                    <button class="finish_exam btn btn-sm btn-success" style="float: right;min-width:100px">Finish <i class="fa fa-flag"></i></button>
+                                                @endif
+                                            @else
+                                                @if ($key+1 > 1)
+                                                <button class="btn btn-sm btn-primary" onclick=soalke({{$key}}) style="float: left; min-width:100px">
+                                                        <i class="fa fa-chevron-circle-left"></i> Prev
+                                                    </button>
+                                                @endif
+                                                @if ($key+1 < $soal->count())
+                                                    <button  class="btn btn-sm btn-primary" style="float: right;min-width:100px" onclick=soalke({{$key+2}})>
+                                                        Next <i class="fa fa-chevron-circle-right"></i>
+                                                    </button>
+                                                @else
+                                                    <button class="finish_exam btn btn-sm btn-success" style="float: right;min-width:100px">Finish <i class="fa fa-flag"></i></button>
+                                                @endif
+                                            @endif
+                                        </div>
+                                        
+
                                         <form id="formadd">@csrf
+                                            <input type="text" hidden id="soalId" name="soalId"
+                                            value="{{ $q->id }}">
                                             <div class="soal_multi">
                                                 <input type="hidden" class="form-control" name="kelas_id" value="{{ $kelas->id }}">
                                                 <input type="hidden" class="form-control" name="mapel_id" value="{{ $mapel->id }}">
@@ -187,11 +207,15 @@
                 blockquoteBreakingLevel: 0,
                 lineHeights : 0,
                 height: 200,
-            });
-            
+            }); 
         });
 
-            // Summernote Plugin: Soft breaks only
+        function soalke(nomor) {
+            var tombol = document.getElementsByClassName('soalke-'+nomor)[0];
+            tombol.click();
+        }
+
+    // Summernote Plugin: Soft breaks only
     // ------------------------------------------------------------------------------------------------------------------ //
     
     // Allow Summernote to not auto-generate p tags
@@ -318,7 +342,7 @@
             startQuiz();
         });
     </script>
-    {{-- <script>
+    <script>
     
         // function disable refresh page
         function disableF5(e) {
@@ -362,5 +386,5 @@
                 }
             });
         }
-    </script> --}}
+    </script>
 @endsection

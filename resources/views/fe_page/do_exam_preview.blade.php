@@ -16,21 +16,78 @@
             <div class="container">
                 <form id="formQuiz">
                     <div class="row">
-                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 pb-20">
+                        
+                        <div class="col-xxl-8 col-xl-8 col-lg-8">
+                            <div class="top border-bottom text-center">
+                                <div class="counter-div">
+                                    <h3 class="events__sponsor-title mb-0">
+                                        <h5 class="mb-0" id="counter" style="color: darkgray"></h5>
+                                    </h3>
+                                </div>
+                                <div class="note">
+                                    <i style="font-size:12px; color: darkgray">usahakan selesaikan seluruh soal sebelum batas waktu pengerjaan habis</i>
+                                </div>
+                            </div>
+                            <div class="teacher__wrapper events__sidebar-widget white-bg">
+                                <div class="teacher__top d-md-flex align-items-end justify-content-between mb-20">
+                                    <input type="text" hidden id="soalId" name="soalId" value="{{ $q->id }}">
+                                    @if (Str::limit($q->soalexam_name, 3) == 'be_...')
+                                        <div class="teacher__info" style="padding: 0; margin: 0">
+                                            <h5>Preview Soal. {{ $ke }}</h5>
+                                            <div class="blog__thumb w-img fix">
+                                                <img src="{{ asset($q->soalexam_name) }}" alt="" style="width:100%">
+                                            </div>
+                                            <br>
+                                        </div>
+                                    @else
+                                        <div class="teacher__info" style="padding: 0; margin: 0">
+                                            <h5>Preview Soal. {{ $ke }}</h5>
+                                            <h5 style="font-size: 16px" class="text-capitalize">{{ $q->soalexam_name }}
+                                            </h5>
+                                        </div>
+                                    @endif
+                                </div>
+                                <h4 style="font-size: 18px">Multiple Choice </h4>
+                                <div class="soal_multi">
+                                    <h4 style="font-weight: 400"></h4>
+                                    <div class="option">
+                                        <ul>
+                                            <li style="line-height: 30px">
+                                                <div class="row">
+                                                    @foreach ($q->optionexam as $key => $opt)
+                                                        <div class="form-group col-md-1 col-2">
+                                                            <input id="jawabanId" name="jawabanId" type="radio"><span></span>
+                                                        </div>
+                                                        <div class="form-group col-md-11 col-10">
+                                                            @if (Str::limit($opt->optionexam_name, 3) == 'be_...')
+                                                                <img src="{{ asset($opt->optionexam_name) }}" alt="" style="max-width:100%">
+                                                            @else
+                                                                <span>{{ $opt->optionexam_name }}</span>
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pb-20">
                             <div class="teacher__details-thumb p-relative w-img">
                                 <div class="events__sidebar-widget white-bg">
                                     <div class="events__sponsor" style="text-align: center">
-                                        <h3 class="events__sponsor-title">
-                                            <h5>{{$quiz->ujian_datetimeend }} 
-                                                {{-- ({{ $quiz->ujian_datetimeend }}:00 MENIT) --}}
-                                            </h5>
-                                            <h5 id="counter"></h5>
-                                        </h3>
-
-                                        <div class="events__sponsor-info">
-                                            <h3>Note : </h3>
-                                            <h4><span>Usahakan selesaikan seluruh soal sebelum batas waktu pengerjaan
-                                                    habis</span></h4>
+                                        <div class="top border-bottom text-center">
+                                            <div class="counter-div">
+                                                <h3 class="events__sponsor-title mb-0">
+                                                    <h5 class="mb-0" style="color: darkgray">
+                                                        INDIKATOR SOAL
+                                                    </h5>
+                                                    <div class="note">
+                                                        <i style="font-size:12px; color: darkgray">usahakan semua soal ujian telah terjawab</i>
+                                                    </div>
+                                                </h3>
+                                            </div>
                                         </div>
                                         <div class="events__sponsor-info button-nav">
                                             @foreach ($quizPanel as $i => $panel)
@@ -66,53 +123,6 @@
                                     <img class="teacher-details-shape-2"
                                         src="{{ asset('fe_assets/assets/img/teacher/details/shape/shape-2.png') }}"
                                         alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-8 col-xl-8 col-lg-8">
-                            <div class="teacher__wrapper events__sidebar-widget white-bg">
-                                {{-- @if (count($q) > 0) --}}
-                                <div class="teacher__top d-md-flex align-items-end justify-content-between mb-20">
-                                    <input type="text" hidden id="soalId" name="soalId" value="{{ $q->id }}">
-                                    @if (Str::limit($q->soalexam_name, 3) == 'be_...')
-                                        <div class="teacher__info" style="padding: 0; margin: 0">
-                                            <h5>Preview Soal. {{ $ke }}</h5>
-                                            <div class="blog__thumb w-img fix">
-                                                <img src="{{ asset($q->soalexam_name) }}" alt="" style="width:100%">
-                                            </div>
-                                            <br>
-                                        </div>
-                                    @else
-                                        <div class="teacher__info" style="padding: 0; margin: 0">
-                                            <h5>Preview Soal. {{ $ke }}</h5>
-                                            <h5 style="font-size: 16px" class="text-capitalize">{{ $q->soalexam_name }}
-                                            </h5>
-                                        </div>
-                                    @endif
-                                </div>
-                                <h4 style="font-size: 18px">Pilihan Jawaban </h4>
-                                <div class="soal_multi">
-                                    <h4 style="font-weight: 400"></h4>
-                                    <div class="option">
-                                        <ul>
-                                            <li style="line-height: 30px">
-                                                <div class="row">
-                                                    @foreach ($q->optionexam as $key => $opt)
-                                                        <div class="form-group col-md-1 col-2">
-                                                            <input id="jawabanId" name="jawabanId" type="radio"><span></span>
-                                                        </div>
-                                                        <div class="form-group col-md-11 col-10">
-                                                            @if (Str::limit($opt->optionexam_name, 3) == 'be_...')
-                                                                <img src="{{ asset($opt->optionexam_name) }}" alt="" style="max-width:100%">
-                                                            @else
-                                                                <span>{{ $opt->optionexam_name }}</span>
-                                                            @endif
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>

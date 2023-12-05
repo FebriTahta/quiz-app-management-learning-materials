@@ -14,68 +14,21 @@
                     alt="">
             </div>
             <div class="container">
-                <form id="formQuiz">
+                {{-- <form id="formQuiz"> --}}
                     <div class="row">
-                        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 pb-20">
-                            <div class="teacher__details-thumb p-relative w-img">
-                                <div class="events__sidebar-widget white-bg">
-                                    <div class="events__sponsor" style="text-align: center">
-                                        <h3 class="events__sponsor-title">
-                                            <h5>{{$quiz->ujian_datetimeend }} 
-                                                {{-- ({{ $quiz->ujian_datetimeend }}:00 MENIT) --}}
-                                            </h5>
-                                            <h5 id="counter"></h5>
-                                        </h3>
-
-                                        <div class="events__sponsor-info">
-                                            <h3>Note : </h3>
-                                            <h4><span>Usahakan selesaikan seluruh soal sebelum batas waktu pengerjaan
-                                                    habis</span></h4>
-                                        </div>
-                                        <div class="events__sponsor-info button-nav">
-                                            @foreach ($quizPanel as $i => $panel)
-                                                @if ($panel->optionexam_id == null)
-                                                    <a href="{{ route('doExam', [
-                                                        'exam_id' => $quiz->id,
-                                                        'byPanel' => $panel->soalexam_id,
-                                                        'mapel_id' => $mapel_id,
-                                                        'kelas_id'=> $kelas_id,
-                                                    ]) }}"
-                                                        id="btnQuiz-{{ $panel->soalexam_id }}" type="button"
-                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-outline-secondary"> <span
-                                                            style="font-size: 12px">{{ $i + 1 }}</span></a>
-                                                @else
-                                                    <a href="{{ route('doExam', [
-                                                        'exam_id' => $quiz->id,
-                                                        'byPanel' => $panel->soalexam_id,
-                                                        'mapel_id' => $mapel_id,
-                                                        'kelas_id'=> $kelas_id,
-                                                    ]) }}"type="button"
-                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-success">
-                                                        <span style="font-size: 12px">{{ $i + 1 }}</span> </a>
-                                                @endif
-                                            @endforeach
-                                            <hr>
-                                            <a href="#finish_exam" style="margin: 7px" id="finish_exam"
-                                                class="btn btn-sm btn-block btn-suuccess">FINISH</a>
-                                        </div>
-                                    </div>
+                        <div class="col-xxl-8 col-xl-8 col-lg-8 pb-20">
+                            <div class="top border-bottom text-center">
+                                <div class="counter-div">
+                                    <h3 class="events__sponsor-title mb-0">
+                                        <h5 class="mb-0" id="counter" style="color: darkgray"></h5>
+                                    </h3>
                                 </div>
-                                <div class="teacher__details-shape">
-                                    <img class="teacher-details-shape-1"
-                                        src="{{ asset('fe_assets/assets/img/teacher/details/shape/shape-1.png') }}"
-                                        alt="">
-                                    <img class="teacher-details-shape-2"
-                                        src="{{ asset('fe_assets/assets/img/teacher/details/shape/shape-2.png') }}"
-                                        alt="">
+                                <div class="note">
+                                    <i style="font-size:12px; color: darkgray">usahakan selesaikan seluruh soal sebelum batas waktu pengerjaan habis</i>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xxl-8 col-xl-8 col-lg-8">
                             <div class="teacher__wrapper events__sidebar-widget white-bg">
-                                {{-- @if (count($q) > 0) --}}
                                 <div class="teacher__top d-md-flex align-items-end justify-content-between mb-20">
-                                    <input type="text" hidden id="soalId" name="soalId" value="{{ $q->id }}">
                                     @if (Str::limit($q->soalexam_name, 3) == 'be_...')
                                         <div class="teacher__info" style="padding: 0; margin: 0">
                                             <h5>No. {{ $indx }}</h5>
@@ -86,17 +39,14 @@
                                             <span></span>
                                         </div>
                                     @else
-                                        <div class="teacher__info" style="padding: 0; margin: 0">
-                                            <h5>No. {{ $index }}</h5>
-                                            <h5 style="font-size: 16px" class="text-capitalize">{{ $q->soalexam_name }}
-                                            </h5>
-                                            <span></span>
+                                        <div style="padding: 0; margin: 0">
+                                            <h5 class="mb-20">No. {{ $index }}</h5>
+                                            <h6 style="font-size: 14px" style="font-weight: 100">{{ $q->soalexam_name }}</h6>
                                         </div>
                                     @endif
                                 </div>
-                                <h4 style="font-size: 16px">Pilihan Jawaban : {{ $kelas_id }}</h4>
+                                <h4 style="font-size: 14px; color:darkgray">Multiple Choice : </h4>
                                 <div class="soal_multi">
-                                    <h4 style="font-weight: 400"></h4>
                                     <div class="option">
                                         <ul>
                                             <li style="line-height: 30px">
@@ -113,7 +63,7 @@
                                                             @if (Str::limit($opt->optionexam_name, 3) == 'be_...')
                                                                 <img src="{{ asset($opt->optionexam_name) }}" alt="" style="max-width:100%">
                                                             @else
-                                                                <span>{{ $opt->optionexam_name }}</span>
+                                                                <span style="font-size:14px">{{ $opt->optionexam_name }}</span>
                                                             @endif
                                                         </div>
                                                     @endforeach
@@ -122,39 +72,87 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <input type="hidden" value="{{auth()->user()->siswa->id}}" id="siswa_id">
-                                <input type="hidden" value="{{$quiz->id}}" id="exam_id">
-                                <input type="hidden" value="{{$kelas_id}}" id="kelas_id">
-                                <input type="hidden" value="{{$mapel_id}}" id="mapel_id">
-                                {{-- <div class="navigation-soal" style="margin-top: 20px">
-                                    @if ($index > 0)
-                                        <a href="#" onclick="showQuiz({{ $index - 1 }})"
-                                            style="float: left; font-size: 20px"><u> Prev</u></a>
-                                    @endif
-                                    @if ($index + 1 < $quizCount)
-                                        <button href="#" type="submit2" style="float: right; font-size: 20px"><u>
-                                                Next</u></button>
-                                    @else
-                                        <button onclick="this.form('formQuiz').submit" type="submit" href="#"
-                                            style="float: right; font-size: 20px"><u> Finish</u></button>
-                                    @endif
-                                </div> --}}
-
-                                {{-- @else
-
-                                <div class="teacher__info" style="padding: 0; margin: 0">
-                                    <h5> - </h5>
-                                    <div class="blog__thumb w-img fix">
-                                        <h5 class="text-uppercase text-danger"> Belum ada soal untuk quiz / ujian ini </h5>
-                                    </div>
-                                    <br>
+                                <form id="formQuiz">
+                                    <input type="text" hidden id="soalId" name="soalId" value="{{ $q->id }}">
+                                    <input type="hidden" value="{{auth()->user()->siswa->id}}" id="siswa_id">
+                                    <input type="hidden" value="{{$quiz->id}}" id="exam_id">
+                                    <input type="hidden" value="{{$kelas_id}}" id="kelas_id">
+                                    <input type="hidden" value="{{$mapel_id}}" id="mapel_id">
+                                </form>
+                            </div>
+                            <div class="navigation-soal pb-100" style="margin-top: 20px">
+                                @if ($index > 1)
+                                    <button class="btn btn-sm btn-primary" onclick=soalke({{$index-1}}) style="float: left; min-width:100px">
+                                        <i class="fa fa-chevron-circle-left"></i> Prev
+                                    </button>
+                                @endif
+                                @if ($index < $quizCount)
+                                    <button  class="btn btn-sm btn-primary" style="float: right;min-width:100px" onclick=soalke({{$index+1}})>
+                                        Next <i class="fa fa-chevron-circle-right"></i>
+                                    </button>
+                                @else
+                                    <button class="finish_exam btn btn-sm btn-success" style="float: right;min-width:100px">Finish <i class="fa fa-flag"></i></button>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 pb-20">
+                            <div class="top border-bottom text-center">
+                                <div class="counter-div">
+                                    <h3 class="events__sponsor-title mb-0">
+                                        <h5 class="mb-0" style="color: darkgray">
+                                            INDIKATOR SOAL
+                                        </h5>
+                                        <div class="note">
+                                            <i style="font-size:12px; color: darkgray">usahakan semua soal ujian telah terjawab</i>
+                                        </div>
+                                    </h3>
                                 </div>
-
-                                @endif --}}
+                            </div>
+                            <div class="teacher__details-thumb p-relative w-img">
+                                <div class="events__sidebar-widget white-bg">
+                                    <div class="events__sponsor" style="text-align: center">
+                                        <div class="events__sponsor-info button-nav">
+                                            @foreach ($quizPanel as $i => $panel)
+                                                @if ($panel->optionexam_id == null)
+                                                    <a href="{{ route('doExam', [
+                                                            'exam_id' => $quiz->id,
+                                                            'byPanel' => $panel->soalexam_id,
+                                                            'mapel_id' => $mapel_id,
+                                                            'kelas_id'=> $kelas_id,
+                                                        ]) }}"
+                                                        id="btnQuiz-{{ $panel->soalexam_id }}" type="button"
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-outline-secondary soalke-{{$i+1}}">
+                                                        <span style="font-size: 12px">{{ $i + 1 }}</span>
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('doExam', [
+                                                            'exam_id' => $quiz->id,
+                                                            'byPanel' => $panel->soalexam_id,
+                                                            'mapel_id' => $mapel_id,
+                                                            'kelas_id'=> $kelas_id,
+                                                        ]) }}"type="button"
+                                                        style="margin: 7px; width:35px" class="btn btn-sm btn-success soalke-{{$i+1}}">
+                                                        <span style="font-size: 12px">{{ $i + 1 }}</span> 
+                                                    </a>
+                                                @endif
+                                            @endforeach
+                                            <hr>
+                                            <button class="finish_exam btn btn-sm btn-success" style="margin: 7px;min-width:100px">Finish <i class="fa fa-flag"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="teacher__details-shape">
+                                    <img class="teacher-details-shape-1"
+                                        src="{{ asset('fe_assets/assets/img/teacher/details/shape/shape-1.png') }}"
+                                        alt="">
+                                    <img class="teacher-details-shape-2"
+                                        src="{{ asset('fe_assets/assets/img/teacher/details/shape/shape-2.png') }}"
+                                        alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </section>
     </main>
@@ -233,7 +231,7 @@
             var exam_id = $('#exam_id').val()
             var kelas_id = $('#kelas_id').val()
             var mapel_id = $('#mapel_id').val()
-            $('#finish_exam').on('click', function (e) {
+            $('.finish_exam').on('click', function (e) {
                 
                 e.preventDefault()
                 swal({
@@ -262,9 +260,10 @@
             })
         });
 
-        function akumulasi_nilai()
+        function soalke(soal)
         {
-
+            var tombol = document.getElementsByClassName('soalke-'+soal)[0];
+            tombol.click();
         }
         
         this.startQuiz();

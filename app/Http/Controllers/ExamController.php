@@ -423,35 +423,26 @@ class ExamController extends Controller
         $now = Carbon::parse(Carbon::now());
         if ($now < $ujian->exam_datetimestart) {
             #abaikan
-            // return 'belum dibuka pages here'; //bisa redirect pages
-            // $status = 0;
-            // return redirect()->route('home')->with('warning', 'ujian belum dibuka');
         }
         if ($now > $ujian->exam_datetimeend) {
-            // return 'expired'; //bisa redirect pages
-            // $status = 2;
+            
             return redirect()->route('home')->with('success', 'ujian telah berakhir');
         }
         // 
         $quizCount = Soalexam::where('exam_id', $ujian->id)->count();
         $jawabanCount = Jawabanexam::where('siswa_id', $request->siswaId)
             ->where('exam_id', $ujian_id)
-            // ->where('optionmulti_id', '!=', 0)
             ->count();
         $nextQuiz = Jawabanexam::where('siswa_id', $request->siswaId)
             ->where('exam_id', $request->ujian_id)
-            // ->where('optionmulti_id', '!=', 0)
             ->first();
         $quizPanel = Jawabanexam::where('siswa_id', $request->siswaId)
             ->where('exam_id', $ujian_id)
-            // ->where('optionmulti_id', '!=', 0)
             ->orderBy('id', 'asc')
             ->get();
 
         $soal = Soalexam::where('exam_id', $request->ujian_id)->with(['optionexam'])->orderBy('id', 'desc')->first();
-        // $quiz = Soalmulti::inRandomOrder()->Get();
-        // $arx = Jawabanmulti::where('siswa_id', $request->siswaId)
-        //     ->where('ujian_id', $request->ujian_id)->orderBy('id', 'asc')->orderBy('id', 'asc')->pluck('id')->toArray();
+        
         if ($jawabanCount >= $quizCount) {
             // return 'all soal done pages';
         } else {
@@ -464,23 +455,16 @@ class ExamController extends Controller
                 ->where('soalexam_id', $request->byPanel)->first();
             $soal = Soalexam::where('id', $request->byPanel)->with(['optionexam'])->first();
             $soal->jawabanSiswa = $jawaban->optionexam_id;
-            // foreach ($arx as $key => $value) {
-            //     if ($value == $soal->id) $indx = $key + 1;
-            // }
         }
         $indx = 1;
         $arr = Jawabanexam::where('siswa_id', $request->siswaId)
             ->where('exam_id', $request->ujian_id)->orderBy('id', 'asc')->pluck('soalexam_id')->toArray();
         foreach ($arr as $key => $value) {
             # code...
-            // return $value;
             if ($value == $soal->id) {
-                // return $value . ';'.$soal->id;
                 $indx = $key ;
-                // return $key;
             }
         }
-        // $indx = array_search($soal->id, $arr);
         // return $indx;
         $indx++;
         $opts = ['A', 'B', 'C', 'D', 'E'];
