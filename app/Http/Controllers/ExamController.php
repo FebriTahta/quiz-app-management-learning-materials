@@ -800,7 +800,8 @@ class ExamController extends Controller
             return view('fe_page.daftar_pilihan_ganda',compact('kelas','siswa','pilihan_ganda_aktif','uraian_aktif'));
         }else {
             # code...
-            return redirect()->route('/');
+            // return redirect()->route('/');
+            return redirect()->to('/');
         }
     }
 
