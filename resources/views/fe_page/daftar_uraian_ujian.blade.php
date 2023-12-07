@@ -3,17 +3,17 @@
 @section('fe_content')
     <main>
         <section class="page__title-area page__title-overlay d-flex align-items-center" style="height: 250px"
-            data-background="{{ asset('fe_assets/assets/img/page-title.jpg') }}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="page__title-wrapper mt-50">
-                            <h3 class="page__title">{{ $kelas->kelas_name }}</h3>
-                        </div>
+        data-background="{{ asset('fe_assets/assets/img/page-title.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="page__title-wrapper mt-50">
+                        <h3 class="page__title">{{ $kelas->kelas_name }}</h3>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
         <section class="course__area pt-120 pb-120">
             <div class="container">
@@ -39,7 +39,7 @@
                                         <h3>Overview :</h3>
                                         <h4><span>Berikut adalah daftar Ujian Pilihan Ganda Aktif yang harus
                                                 diselesaikan.</span></h4>
-                                        <h4><span> {{ $pilihan_ganda_aktif->count() }} pilihan ganda.</span></h4>
+                                        <h4><span> {{ $uraian_aktif->count() }} pilihan ganda.</span></h4>
                                     </div>
                                 </div>
                                 <hr>
@@ -65,29 +65,30 @@
                                 <div class="course__tab mb-45">
                                     <ul class="nav nav-tabs" id="courseTab" role="tablist">
                                         <li class="nav-item" role="presentation" style="margin-right:20px">
-                                            <button class="nav-link active" id="curriculum-tab" data-bs-toggle="tab"
-                                                data-bs-target="#curriculum" type="button" role="tab"
-                                                aria-controls="curriculum" aria-selected="false"> <i
-                                                    class="icon_ribbon_alt"></i></i>
-                                                <span>MULTIPLE </span> </button>
+                                            <a class="nav-link" id="curriculum-tab" 
+                                                {{-- data-bs-toggle="tab"
+                                                data-bs-target="#curriculum"  --}}
+                                                type="button" role="tab"
+                                                {{-- aria-controls="curriculum" aria-selected="false" --}}
+                                                href="/daftar-ujian/{{encrypt($kelas->id)}}"> 
+                                                <i class="icon_ribbon_alt"></i></i>
+                                                <span>MULTIPLE </span> 
+                                            </a>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="review-tab" href="/daftar-ujian-uraian/{{encrypt($kelas->id)}}"
-                                                {{-- data-bs-toggle="tab"
-                                                data-bs-target="#review"  --}}
-                                                type="button" role="tab"
-                                                {{-- aria-controls="review"  --}}
-                                                aria-selected="false"
-                                                > <i class="icon_ribbon_alt"></i>
+                                            <button class="nav-link active" id="review-tab" data-bs-toggle="tab"
+                                                data-bs-target="#review" type="button" role="tab"
+                                                aria-controls="review" aria-selected="false"> <i
+                                                    class="icon_ribbon_alt"></i>
                                                 <span>URAIAN</span>
-                                            </a>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="course__tab-content mb-95">
                                 <div class="tab-content" id="courseTabContent">
-                                    {{-- <div class="tab-pane fade" id="review" role="tabpanel"
+                                    <div class="tab-pane fade show active" id="review" role="tabpanel"
                                         aria-labelledby="curriculum-tab">
                                         <div class="course__curriculum">
                                             @foreach ($uraian_aktif as $key => $item)
@@ -113,7 +114,7 @@
                                                                 <div
                                                                     class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
                                                                     <div class="course__curriculum-info">
-                                                                        <p>Deskripsi :</p>
+                                                                        {{-- <p>Deskripsi :</p> --}}
                                                                         <h3> <span>Start : {{ \Carbon\Carbon::parse($item->examurai_datetimestart)->format('l - d M Y') }} ({{ $item->examurai_lamapengerjaan }} menit)</span></h3><br>
                                                                     </div>
                                                                     <div class="course__curriculum-meta">
@@ -138,62 +139,10 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     {{--  --}}
 
-                                    <div class="tab-pane fade  show active" id="curriculum" role="tabpanel"
-                                        aria-labelledby="curriculum-tab">
-                                        <div class="course__curriculum">
-                                            @foreach ($pilihan_ganda_aktif as $key => $item)
-                                                <div class="accordion" id="course__accordion{{ $key }}"
-                                                    style="margin-top: 20px">
-                                                    <div class="accordion-item mb-20">
-                                                        <h2 class="accordion-header" id="week-01">
-                                                            <button class="accordion-button text-capitalize"
-                                                                type="button" data-bs-toggle="collapse"
-                                                                data-bs-target="#x" aria-expanded="true"
-                                                                aria-controls="week-01-content">
-                                                                {{ $item->mapel->mapel_name }}
-                                                            </button>
-                                                        </h2>
-
-                                                        <div id="x"
-                                                            @if ($key == '0') class="accordion-collapse collapse show"
-                                                                @else
-                                                                class="accordion-collapse collapse show" @endif
-                                                            aria-labelledby="week-01"
-                                                            data-bs-parent="#course__accordion{{ $key }}">
-                                                            <div class="accordion-body">
-                                                                <div
-                                                                    class="course__curriculum-content d-sm-flex justify-content-between align-items-center">
-                                                                    <div class="course__curriculum-info">
-                                                                        {{-- <p>Deskripsi :</p> --}}
-                                                                        <h3> <span>Start : {{ \Carbon\Carbon::parse($item->exam_datetimestart)->format('l - d M Y') }} ({{ $item->exam_lamapengerjaan }} menit)</span></h3><br>
-                                                                    </div>
-                                                                    <div class="course__curriculum-meta">
-                                                                        @php
-                                                                            $jawabanku = App\Models\Jawabanexam::where('kelas_id', $kelas->id)->where('exam_id',$item->id)
-                                                                                ->where('siswa_id', auth()->user()->siswa->id)
-                                                                                ->first();
-                                                                        @endphp
-                                                                        @if ($jawabanku == null)
-                                                                            <button class="btn btn-sm btn-danger text-white"
-                                                                            onclick="check({{ $item }},{{ $item->mapel_id }},{{ $siswa->kelas->id }},'/do-exam')"
-                                                                            >belum dikerjakan</button>
-                                                                        @else
-                                                                            <button onclick="check({{ $item }},{{ $item->mapel_id }},{{ $siswa->kelas->id }},'/do-exam')"
-                                                                             class="btn btn-sm btn-info text-white">sudah dikerjakan</button>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
