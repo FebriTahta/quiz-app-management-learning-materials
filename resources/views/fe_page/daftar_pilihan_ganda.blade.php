@@ -71,27 +71,27 @@
                             <div class="teacher_bio" style="margin-top: 10px">
                                 <div class="course__tab mb-45">
                                     <ul class="nav nav-tabs" id="courseTab" role="tablist">
-                                        <li class="nav-item" role="presentation">
+                                        <li class="nav-item" role="presentation" style="margin-right:20px">
                                             <button class="nav-link active" id="curriculum-tab" data-bs-toggle="tab"
                                                 data-bs-target="#curriculum" type="button" role="tab"
                                                 aria-controls="curriculum" aria-selected="false"> <i
                                                     class="icon_ribbon_alt"></i></i>
                                                 <span>MULTIPLE </span> </button>
                                         </li>
-                                        {{-- <li class="nav-item" role="presentation">
+                                        <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="review-tab" data-bs-toggle="tab"
                                                 data-bs-target="#review" type="button" role="tab"
                                                 aria-controls="review" aria-selected="false"> <i
                                                     class="icon_ribbon_alt"></i>
                                                 <span>URAIAN</span>
                                             </button>
-                                        </li> --}}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="course__tab-content mb-95">
                                 <div class="tab-content" id="courseTabContent">
-                                    {{-- <div class="tab-pane fade" id="review" role="tabpanel"
+                                    <div class="tab-pane fade" id="review" role="tabpanel"
                                         aria-labelledby="curriculum-tab">
                                         <div class="course__curriculum">
                                             @foreach ($uraian_aktif as $key => $item)
@@ -142,7 +142,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     {{--  --}}
 
