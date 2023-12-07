@@ -8,10 +8,7 @@
                 <div class="row">
                     <div class="col-xxl-12">
                         <div class="page__title-wrapper mt-110">
-                            <h3 class="page__title">{{ $kelas->kelas_name }}
-                                {{ $kelas->jurusan->jurusan_name }}
-                                {{ $kelas->angkatan->tingkat->tingkat_name }}
-                                "{{ $kelas->angkatan->angkatan_name }}"</h3>
+                            <h3 class="page__title">{{ $kelas->kelas_name }}</h3>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>

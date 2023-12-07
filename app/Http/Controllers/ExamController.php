@@ -785,19 +785,18 @@ class ExamController extends Controller
     {
         $kelas_id = Crypt::decrypt($kelas_id);
         $kelas = Kelas::findOrFail($kelas_id);
-        $pilihan_ganda_aktif = $kelas->exam->where('exam_status','aktif');
         if (isset(auth()->user()->siswa)) {
             # code...
             $siswa = auth()->user()->siswa;
-            $uraian_aktif = Examurai::where('examurai_status','aktif')->whereHas('kelas', function($query) use ($kelas){
-                $query->where('kelas_id', $kelas->id);
-            })->whereDate('examurai_datetimestart', now()->toDateString()) // Menambahkan kondisi tanggal
-            ->get();
+            // $uraian_aktif = Examurai::where('examurai_status','aktif')->whereHas('kelas', function($query) use ($kelas){
+            //     $query->where('kelas_id', $kelas->id);
+            // })->whereDate('examurai_datetimestart', now()->toDateString()) // Menambahkan kondisi tanggal
+            // ->get();
             $pilihan_ganda_aktif = Exam::where('exam_status','aktif')->whereHas('kelas', function($query2) use ($kelas){
                 $query2->where('kelas_id',$kelas->id);
             })->whereDate('exam_datetimestart', now()->toDateString()) // Menambahkan kondisi tanggal
             ->get();
-            return view('fe_page.daftar_pilihan_ganda',compact('kelas','siswa','pilihan_ganda_aktif','uraian_aktif'));
+            return view('fe_page.daftar_pilihan_ganda',compact('kelas','siswa','pilihan_ganda_aktif'));
         }else {
             # code...
             // return redirect()->route('/');

@@ -8,10 +8,7 @@
                 <div class="row">
                     <div class="col-xxl-12">
                         <div class="page__title-wrapper mt-110">
-                            <h3 class="page__title">{{ $kelas->kelas_name }}
-                                {{ $kelas->jurusan->jurusan_name }}
-                                {{ $kelas->angkatan->tingkat->tingkat_name }}
-                                "{{ $kelas->angkatan->angkatan_name }}"</h3>
+                            <h3 class="page__title">{{ $kelas->kelas_name }}</h3>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -81,14 +78,14 @@
                                                     class="icon_ribbon_alt"></i></i>
                                                 <span>MULTIPLE </span> </button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
+                                        {{-- <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="review-tab" data-bs-toggle="tab"
                                                 data-bs-target="#review" type="button" role="tab"
                                                 aria-controls="review" aria-selected="false"> <i
                                                     class="icon_ribbon_alt"></i>
                                                 <span>URAIAN</span>
                                             </button>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>
