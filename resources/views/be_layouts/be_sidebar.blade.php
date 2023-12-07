@@ -98,12 +98,11 @@
                             <span>Dashboard</span>
                             {{-- <span class="badge r-3 badge-primary pull-right">4</span> --}}
                         </a>
-                        <a href="/data-user-online-tiap-kelas">
+                        {{-- <a href="/data-user-online-tiap-kelas">
                             <i class="icon icon icon-user blue-text s-18"></i>
                             <span>Parameter User Online </span>
-                            {{-- <span class="badge r-3 badge-primary pull-right">4</span> --}}
                             
-                        </a>
+                        </a> --}}
                     </li>
 
 

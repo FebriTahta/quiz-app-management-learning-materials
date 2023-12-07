@@ -62,10 +62,11 @@ class DashboardController extends Controller
             $totalPerKelas = array_map(function ($kelasName, $total) {
                 return ['kelas_name' => $kelasName, 'total' => $total];
             }, array_keys($kelasCounts), $kelasCounts);
-
+            
             return response()->json([
                 'total_perkelas' => $totalPerKelas
             ]);
+
         } else {
             return view('be_page.parameter_user_online');
         }

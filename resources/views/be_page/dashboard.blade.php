@@ -129,6 +129,17 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="loading text-center" style="margin-top:50px">
+                                <h1>Loading...</h1>
+                            </div>
+                            <ol class="total_kelas_online" style="margin-top:50px">
+                                {{--  --}}
+                            </ol>
+                        </div>
+                    </div>
+
                     <div class="col-xl-4">
                         <figure class="highcharts-figure">
                             <div id="container" style="min-height: 405px; width:100%"></div>
@@ -153,7 +164,7 @@
                                 <small class="card-subtitle mb-2 text-muted">Display the last 4 online user (proses
                                     kalkulasi data dalam 30 sec & keep online in 2 min)</small>
                             </div>
-                            <style>
+                            {{-- <style>
                                 table.dataTable td {
                                     padding: 5px;
                                 }
@@ -165,9 +176,9 @@
                                 td {
                                     text-align: left;
                                 }
-                            </style>
+                            </style> --}}
 
-                            <div class="collapse show" id="salesCard">
+                            {{-- <div class="collapse show" id="salesCard">
                                 <div class="card-body p-0">
                                     <div class="table-responsive">
                                         <table class="table table-hover earning-box" id="tabel-user">
@@ -186,7 +197,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -235,6 +246,31 @@
 
     <script>
         $(document).ready(function() {
+            var ol = $('.total_kelas_online');
+            $.ajax({
+                type: 'GET',
+                url: '/data-user-online-tiap-kelas',
+                success: function(response) {
+                    $('.loading').addClass('d-none');
+
+                    var kelasNames = response.total_perkelas.map(function(item) {
+                        return item.kelas_name;
+                    });
+                    var totalOnline = response.total_perkelas.map(function(item) {
+                        return item.total;
+                    });
+
+                    if (kelasNames !== []) {
+                        ol.append(
+                            '<li>'+ kelasNames +' : '+totalOnline+' user akses</li>'
+                        )                         
+                    }
+                    console.log(kelasNames);
+                }
+            });
+            
+
+
             $('#tanggal_akses').on('change',function(){
                 $('#tanggal_akses_text').html(this.value);
                 $('#modaladd').modal('show');
@@ -272,54 +308,54 @@
                     } else {
                         $('#total_akses').html(response.total + ' User');
                     }
-                    Highcharts.chart('container2', {
-                        chart: {
-                            type: 'spline'
-                        },
-                        title: {
-                            text: 'Realtime User Akses'
-                        },
-                        subtitle: {
-                            text: 'Grafik user akses tiap hari dalam sepekan'
-                        },
-                        xAxis: {
-                            categories: response.tanggal,
-                            accessibility: {
-                                description: 'Tanggal Akses'
-                            }
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Total User Akses'
-                            },
-                            labels: {
-                                formatter: function() {
-                                    return this.value + '°';
-                                }
-                            }
-                        },
-                        tooltip: {
-                            crosshairs: true,
-                            shared: true
-                        },
-                        plotOptions: {
-                            spline: {
-                                marker: {
-                                    radius: 4,
-                                    lineColor: '#666666',
-                                    lineWidth: 1
-                                }
-                            }
-                        },
-                        series: [{
-                            name: 'User yang mengakses',
-                            marker: {
-                                symbol: 'square'
-                            },
-                            data: response.total
+                    // Highcharts.chart('container2', {
+                    //     chart: {
+                    //         type: 'spline'
+                    //     },
+                    //     title: {
+                    //         text: 'Realtime User Akses'
+                    //     },
+                    //     subtitle: {
+                    //         text: 'Grafik user akses tiap hari dalam sepekan'
+                    //     },
+                    //     xAxis: {
+                    //         categories: response.tanggal,
+                    //         accessibility: {
+                    //             description: 'Tanggal Akses'
+                    //         }
+                    //     },
+                    //     yAxis: {
+                    //         title: {
+                    //             text: 'Total User Akses'
+                    //         },
+                    //         labels: {
+                    //             formatter: function() {
+                    //                 return this.value + '°';
+                    //             }
+                    //         }
+                    //     },
+                    //     tooltip: {
+                    //         crosshairs: true,
+                    //         shared: true
+                    //     },
+                    //     plotOptions: {
+                    //         spline: {
+                    //             marker: {
+                    //                 radius: 4,
+                    //                 lineColor: '#666666',
+                    //                 lineWidth: 1
+                    //             }
+                    //         }
+                    //     },
+                    //     series: [{
+                    //         name: 'User yang mengakses',
+                    //         marker: {
+                    //             symbol: 'square'
+                    //         },
+                    //         data: response.total
 
-                        }]
-                    });
+                    //     }]
+                    // });
                 }
             });
 
@@ -335,100 +371,98 @@
                         $('#total').html(total + ' User');
                     }
 
-                    console.log(response);
+                    // Highcharts.chart('container', {
+                    //     chart: {
+                    //         type: 'column'
+                    //     },
+                    //     title: {
+                    //         align: 'left',
+                    //         text: 'Realtime Online User'
+                    //     },
+                    //     subtitle: {
+                    //         align: 'left',
+                    //         text: 'keep online for 2 min'
+                    //     },
+                    //     accessibility: {
+                    //         announceNewData: {
+                    //             enabled: true
+                    //         }
+                    //     },
+                    //     xAxis: {
+                    //         type: 'category'
+                    //     },
+                    //     yAxis: {
+                    //         title: {
+                    //             text: 'Total online user'
+                    //         }
 
-                    Highcharts.chart('container', {
-                        chart: {
-                            type: 'column'
-                        },
-                        title: {
-                            align: 'left',
-                            text: 'Realtime Online User'
-                        },
-                        subtitle: {
-                            align: 'left',
-                            text: 'keep online for 2 min'
-                        },
-                        accessibility: {
-                            announceNewData: {
-                                enabled: true
-                            }
-                        },
-                        xAxis: {
-                            type: 'category'
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Total online user'
-                            }
+                    //     },
+                    //     legend: {
+                    //         enabled: false
+                    //     },
+                    //     plotOptions: {
+                    //         series: {
+                    //             borderWidth: 0,
+                    //             dataLabels: {
+                    //                 enabled: true,
+                    //                 format: '{point.y:.0f}'
+                    //             }
+                    //         }
+                    //     },
 
-                        },
-                        legend: {
-                            enabled: false
-                        },
-                        plotOptions: {
-                            series: {
-                                borderWidth: 0,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.y:.0f}'
-                                }
-                            }
-                        },
+                    //     tooltip: {
+                    //         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    //         pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> of total<br/>'
+                    //     },
 
-                        tooltip: {
-                            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> of total<br/>'
-                        },
-
-                        series: [{
-                            name: 'Browsers',
-                            colorByPoint: true,
-                            data: [{
-                                    name: 'Online',
-                                    y: response.data,
-                                },
-                                {
-                                    name: 'Offline',
-                                    y: response.offline,
-                                },
-                            ]
-                        }],
-                    });
+                    //     series: [{
+                    //         name: 'Browsers',
+                    //         colorByPoint: true,
+                    //         data: [{
+                    //                 name: 'Online',
+                    //                 y: response.data,
+                    //             },
+                    //             {
+                    //                 name: 'Offline',
+                    //                 y: response.offline,
+                    //             },
+                    //         ]
+                    //     }],
+                    // });
                 }
             });
 
-            var table = $('#tabel-user').DataTable({
-                    destroy: true,
-                    processing: true,
-                    serverSide: true,
-                    ajax: "/data-user-online",
-                    columns: [
-                        {
-                            "data": null,
-                            "sortable": false,
-                            render: function(data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                        },
-                        {
-                            data: 'username2',
-                            name: 'username2'
-                        },
-                        {
-                            data: 'last_seen',
-                            name: 'last_seen'
-                        },
-                        {
-                            data: 'online',
-                            name: 'online',
-                        },
-                        {
-                            data: 'login_time',
-                            name: 'login_time',
-                        }
-                    ]
-                });
+            // var table = $('#tabel-user').DataTable({
+            //         destroy: true,
+            //         processing: true,
+            //         serverSide: true,
+            //         ajax: "/data-user-online",
+            //         columns: [
+            //             {
+            //                 "data": null,
+            //                 "sortable": false,
+            //                 render: function(data, type, row, meta) {
+            //                     return meta.row + meta.settings._iDisplayStart + 1;
+            //                 }
+            //             },
+            //             {
+            //                 data: 'username2',
+            //                 name: 'username2'
+            //             },
+            //             {
+            //                 data: 'last_seen',
+            //                 name: 'last_seen'
+            //             },
+            //             {
+            //                 data: 'online',
+            //                 name: 'online',
+            //             },
+            //             {
+            //                 data: 'login_time',
+            //                 name: 'login_time',
+            //             }
+            //         ]
+            //     });
 
 
             total_user_online();
@@ -471,64 +505,64 @@
 
                         console.log(response);
 
-                        Highcharts.chart('container', {
-                            chart: {
-                                type: 'column'
-                            },
-                            title: {
-                                align: 'left',
-                                text: 'Realtime Online User'
-                            },
-                            subtitle: {
-                                align: 'left',
-                                text: 'keep online for 2 min'
-                            },
-                            accessibility: {
-                                announceNewData: {
-                                    enabled: true
-                                }
-                            },
-                            xAxis: {
-                                type: 'category'
-                            },
-                            yAxis: {
-                                title: {
-                                    text: 'Total online user'
-                                }
+                        // Highcharts.chart('container', {
+                        //     chart: {
+                        //         type: 'column'
+                        //     },
+                        //     title: {
+                        //         align: 'left',
+                        //         text: 'Realtime Online User'
+                        //     },
+                        //     subtitle: {
+                        //         align: 'left',
+                        //         text: 'keep online for 2 min'
+                        //     },
+                        //     accessibility: {
+                        //         announceNewData: {
+                        //             enabled: true
+                        //         }
+                        //     },
+                        //     xAxis: {
+                        //         type: 'category'
+                        //     },
+                        //     yAxis: {
+                        //         title: {
+                        //             text: 'Total online user'
+                        //         }
 
-                            },
-                            legend: {
-                                enabled: false
-                            },
-                            plotOptions: {
-                                series: {
-                                    borderWidth: 0,
-                                    dataLabels: {
-                                        enabled: true,
-                                        format: '{point.y:.0f}'
-                                    }
-                                }
-                            },
+                        //     },
+                        //     legend: {
+                        //         enabled: false
+                        //     },
+                        //     plotOptions: {
+                        //         series: {
+                        //             borderWidth: 0,
+                        //             dataLabels: {
+                        //                 enabled: true,
+                        //                 format: '{point.y:.0f}'
+                        //             }
+                        //         }
+                        //     },
 
-                            tooltip: {
-                                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> of total<br/>'
-                            },
+                        //     tooltip: {
+                        //         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        //         pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.0f}</b> of total<br/>'
+                        //     },
 
-                            series: [{
-                                name: 'Browsers',
-                                colorByPoint: true,
-                                data: [{
-                                        name: 'Online',
-                                        y: response.data,
-                                    },
-                                    {
-                                        name: 'Offline',
-                                        y: response.offline,
-                                    },
-                                ]
-                            }],
-                        });
+                        //     series: [{
+                        //         name: 'Browsers',
+                        //         colorByPoint: true,
+                        //         data: [{
+                        //                 name: 'Online',
+                        //                 y: response.data,
+                        //             },
+                        //             {
+                        //                 name: 'Offline',
+                        //                 y: response.offline,
+                        //             },
+                        //         ]
+                        //     }],
+                        // });
                     }
                 });
             }, 30 * 1000); // 60 * 1000 milsec
@@ -576,59 +610,60 @@
                     type: 'GET',
                     url: '/user-akses',
                     success: function(response) {
+                        console.log(response.tanggal);
                         if (response.total.length == 1) {
                             $('#total_akses').html('0' + response.total + ' User');
                         } else {
                             $('#total_akses').html(response.total + ' User');
                         }
-                        Highcharts.chart('container2', {
-                            chart: {
-                                type: 'spline'
-                            },
-                            title: {
-                                text: 'Realtime User Akses'
-                            },
-                            subtitle: {
-                                text: 'Grafik user akses tiap hari dalam sepekan'
-                            },
-                            xAxis: {
-                                categories: response.tanggal,
-                                accessibility: {
-                                    description: 'Tanggal Akses'
-                                }
-                            },
-                            yAxis: {
-                                title: {
-                                    text: 'Total User Akses'
-                                },
-                                labels: {
-                                    formatter: function() {
-                                        return this.value + '°';
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                crosshairs: true,
-                                shared: true
-                            },
-                            plotOptions: {
-                                spline: {
-                                    marker: {
-                                        radius: 4,
-                                        lineColor: '#666666',
-                                        lineWidth: 1
-                                    }
-                                }
-                            },
-                            series: [{
-                                name: 'User yang mengakses',
-                                marker: {
-                                    symbol: 'square'
-                                },
-                                data: response.total
+                        // Highcharts.chart('container2', {
+                        //     chart: {
+                        //         type: 'spline'
+                        //     },
+                        //     title: {
+                        //         text: 'Realtime User Akses'
+                        //     },
+                        //     subtitle: {
+                        //         text: 'Grafik user akses tiap hari dalam sepekan'
+                        //     },
+                        //     xAxis: {
+                        //         categories: response.tanggal,
+                        //         accessibility: {
+                        //             description: 'Tanggal Akses'
+                        //         }
+                        //     },
+                        //     yAxis: {
+                        //         title: {
+                        //             text: 'Total User Akses'
+                        //         },
+                        //         labels: {
+                        //             formatter: function() {
+                        //                 return this.value + '°';
+                        //             }
+                        //         }
+                        //     },
+                        //     tooltip: {
+                        //         crosshairs: true,
+                        //         shared: true
+                        //     },
+                        //     plotOptions: {
+                        //         spline: {
+                        //             marker: {
+                        //                 radius: 4,
+                        //                 lineColor: '#666666',
+                        //                 lineWidth: 1
+                        //             }
+                        //         }
+                        //     },
+                        //     series: [{
+                        //         name: 'User yang mengakses',
+                        //         marker: {
+                        //             symbol: 'square'
+                        //         },
+                        //         data: response.total
 
-                            }]
-                        });
+                        //     }]
+                        // });
                     }
                 });
             }, 30 * 1000); // 60 * 1000 milsec
