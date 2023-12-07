@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('exam_datetimeend')->nullable(); // start dari pukul sekian
             $table->string('exam_status')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('exam_name', 'exam_name_index');
+            $table->index('id', 'exam_id_index');
         });
     }
 

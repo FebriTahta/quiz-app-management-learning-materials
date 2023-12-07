@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('ujian_datetimestart')->nullable(); // start dari pukul sekian
             $table->string('ujian_datetimeend')->nullable(); // start dari pukul sekian
             $table->timestamps();
+
+            // indexing
+            $table->index('ujian_name', 'ujian_name_index');
+            $table->index('ujian_slug', 'ujian_slug_index');
+            $table->index('id', 'ujian_id_index');
         });
     }
 

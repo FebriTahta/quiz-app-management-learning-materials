@@ -18,6 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('examurai_id')->nullable();
             $table->longText('soalexam_name')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('soalexam_name', 'soalexamurai_name_index');
+            $table->index('id', 'soalexamurai_id_index');
         });
     }
 

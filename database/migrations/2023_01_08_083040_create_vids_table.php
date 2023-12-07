@@ -21,6 +21,10 @@ return new class extends Migration
             $table->longText('vids_name')->nullable();
             $table->longText('vids_desc')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('vids_name', 'vids_name_index');
+            $table->index('id', 'vids_id_index');
         });
     }
 

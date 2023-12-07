@@ -23,6 +23,10 @@ return new class extends Migration
             $table->longText('jawabanku')->nullable();
             $table->longText('nilaiku')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('jawabanku', 'jawabanexamurai_name_index');
+            $table->index('id', 'jawabanexamurai_id_index');
         });
     }
 

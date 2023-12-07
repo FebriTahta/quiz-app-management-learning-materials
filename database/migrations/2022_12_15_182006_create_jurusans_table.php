@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('jurusan_name');
             $table->string('jurusan_slug');
             $table->timestamps();
+            // indexing
+            $table->index('jurusan_name', 'jurusan_name_index');
+            $table->index('id', 'jurusan_id_index');
         });
     }
 

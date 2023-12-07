@@ -22,6 +22,10 @@ return new class extends Migration
             $table->longText('jawabtugas_file')->nullable();
             $table->longText('jawabtugas_name')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('jawabtugas_name', 'jawabtugas_name_index');
+            $table->index('id', 'jawabtugas_id_index');
         });
     }
 

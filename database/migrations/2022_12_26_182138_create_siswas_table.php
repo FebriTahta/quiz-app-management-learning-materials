@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('siswa_slug');
             $table->string('siswa_status');
             $table->timestamps();
+
+            // indexing
+            $table->index('siswa_name', 'siswa_name_index');
+            $table->index('siswa_slug', 'siswa_slug_index');
+            $table->index('id', 'siswa_id_index');
         });
     }
 

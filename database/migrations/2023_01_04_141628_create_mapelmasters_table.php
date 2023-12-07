@@ -19,6 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->unsignedBigInteger('mapel_id')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'mapelmaster_id_index');
         });
     }
 

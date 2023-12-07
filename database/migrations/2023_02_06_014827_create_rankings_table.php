@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('ranking_nilai')->nullable();
             $table->string('ranking_rank')->nullable();
             $table->timestamps();
+
+             // indexing
+             $table->index('ranking_nilai', 'ranking_nilai_name_index');
+             $table->index('id', 'ranking_nilai_id_index');
         });
     }
 

@@ -19,6 +19,10 @@ return new class extends Migration
             $table->longText('soal_kode')->nullable(); // unique untuk edit waktu import ulang soal
             $table->longText('soal_name')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('soal_name', 'soal_name_index');
+            $table->index('id', 'soal_id_index');
         });
     }
 

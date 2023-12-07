@@ -19,6 +19,9 @@ return new class extends Migration
             $table->longText('img_guru')->nullable();
             $table->longText('wa_guru')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'detailguru_id_index');
         });
     }
 

@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('hari_ind')->nullable();
             $table->string('hari_eng')->nullable();
             $table->timestamps();
+
+              // indexing
+              $table->index('hari_ind', 'hari_ind_index');
+              $table->index('id', 'hari_id_index');
         });
     }
 

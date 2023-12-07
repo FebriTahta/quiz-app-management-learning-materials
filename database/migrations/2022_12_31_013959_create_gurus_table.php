@@ -23,6 +23,11 @@ return new class extends Migration
             $table->longText('quote')->nullable();
             $table->string('guru_status')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('guru_name', 'guru_name_index');
+            $table->index('guru_slug', 'guru_slug_index');
+            $table->index('id', 'guru_id_index');
         });
     }
 

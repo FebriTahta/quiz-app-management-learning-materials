@@ -17,9 +17,9 @@
         <thead style="font-weight: bold; text-transform: uppercase">
             <tr>
                 <th rowspan="4" colspan="10">DATA HASIL PILIHAN GANDA. KELAS : 
-                    @isset ($jawaban[0])
+                    @if ($jawaban[0])
                     {{strtoupper($jawaban[0]->kelas->kelas_name)}} 
-                    @endisset
+                    @endif
                     <br>
                     @php
                         $start = $jawaban->first();

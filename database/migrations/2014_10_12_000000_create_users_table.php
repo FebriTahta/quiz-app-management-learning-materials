@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            // indexing
+            $table->index('username', 'users_name_index');
+            $table->index('id', 'users_id_index');
         });
     }
 

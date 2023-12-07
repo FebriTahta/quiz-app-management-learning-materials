@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('siswa_id')->nullable();
             $table->longText('img_siswa')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'detailsiswa_id_index');
         });
     }
 

@@ -23,6 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('optionmulti_id')->nullable();
             $table->string('jawabanku')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('jawabanku', 'jawabanku_index');
+            $table->index('id', 'jawaban_id_index');
         });
     }
 

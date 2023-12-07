@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('angkatan_status');
             $table->unsignedBigInteger('tingkat_id');
             $table->timestamps();
+
+             // indexing
+             $table->index('angkatan_name', 'angkatan_name_index');
+             $table->index('id', 'angkatan_id_index');
         });
     }
 

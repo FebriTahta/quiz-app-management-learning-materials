@@ -22,6 +22,10 @@ return new class extends Migration
             $table->longText('tugas_name')->nullable();
             $table->longText('tugas_desc')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('tugas_name', 'tugas_name_index');
+            $table->index('id', 'tugas_id_index');
         });
     }
 

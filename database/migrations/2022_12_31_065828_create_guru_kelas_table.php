@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('guru_id');
             $table->unsignedBigInteger('kelas_id');
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'gurukelas_id_index');
         });
     }
 

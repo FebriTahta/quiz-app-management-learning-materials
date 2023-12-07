@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('examurai_datetimeend')->nullable();
             $table->string('examurai_status')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('examurai_name', 'examurai_name_index');
+            $table->index('id', 'examurai_id_index');
         });
     }
 

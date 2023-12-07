@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('mapel_id')->nullable();
             $table->integer('nilai')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'nilaiexam_index');
+            $table->index('nilai', 'nilaiexam_nilai_index');
         });
     }
 

@@ -92,10 +92,17 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="header light mt-3"><strong>NAVIGATION</strong></li>
-                    <li class="treeview"><a href="/admin-dashboard">
+                    <li class="treeview">
+                        <a href="/admin-dashboard">
                             <i class="icon icon icon-package blue-text s-18"></i>
                             <span>Dashboard</span>
                             {{-- <span class="badge r-3 badge-primary pull-right">4</span> --}}
+                        </a>
+                        <a href="/data-user-online-tiap-kelas">
+                            <i class="icon icon icon-user blue-text s-18"></i>
+                            <span>Parameter User Online </span>
+                            {{-- <span class="badge r-3 badge-primary pull-right">4</span> --}}
+                            
                         </a>
                     </li>
 

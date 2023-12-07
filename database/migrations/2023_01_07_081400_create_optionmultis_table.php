@@ -19,6 +19,10 @@ return new class extends Migration
             $table->longtext('option_name')->nullable();
             $table->string('option_true')->nullable(); // diisi 1 / 0 saja
             $table->timestamps();
+
+            // indexing
+            $table->index('option_name', 'option_name_index');
+            $table->index('id', 'option_id_index');
         });
     }
 

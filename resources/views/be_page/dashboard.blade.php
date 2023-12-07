@@ -101,7 +101,7 @@
                                     <div class="float-right">
                                         <span class="icon icon-note-list s-48"></span>
                                     </div>
-                                    <div class="counter-title">Total User Akses</div>
+                                    <div class="counter-title">Total User Akses (Pernah Login)</div>
                                     <h5 id="total_akses"></h5>
                                 </div>
                                 <div class="progress progress-xs r-0">

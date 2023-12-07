@@ -21,6 +21,10 @@ return new class extends Migration
             $table->unsignedBigInteger('materi_id')->nullable();
             $table->longText('komen')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('komen', 'komen_name_index');
+            $table->index('id', 'komen_id_index');
         });
     }
 

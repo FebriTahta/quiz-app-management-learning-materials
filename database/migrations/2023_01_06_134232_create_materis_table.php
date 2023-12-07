@@ -22,6 +22,11 @@ return new class extends Migration
             $table->longText('materi_name')->nullable();
             $table->longText('materi_slug')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('materi_name', 'materi_name_index');
+            $table->index('materi_slug', 'materi_slug_index');
+            $table->index('id', 'materi_id_index');
         });
     }
 

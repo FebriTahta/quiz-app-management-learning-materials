@@ -20,6 +20,10 @@ return new class extends Migration
             $table->longText('docs_file')->nullable();
             $table->longText('docs_name')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('docs_name', 'docs_name_index');
+            $table->index('id', 'docs_id_index');
         });
     }
 

@@ -66,6 +66,7 @@ Route::controller(DashboardController::class)->group(function(){
     Route::get('/user-akses','akses_user');
     Route::get('/data-user-online','data_user_online');
     Route::get('/data-user-akses/{tanggal}','data_user_akses');
+    Route::get('/data-user-online-tiap-kelas','data_user_online_tiap_kelas');
 });
  
 Route::group(['middleware' => ['auth', 'CheckRole:admin']], function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Cache;
 use Carbon;
 use App\Models\User;
+use App\Models\Kelas;
 use DataTables;
 use App\Models\Userakses;
 use DB;
@@ -39,6 +40,37 @@ class DashboardController extends Controller
             ]);
         }
     }
+
+    public function data_user_online_tiap_kelas(Request $request)
+    {
+        if ($request->ajax()) {
+            $users = User::whereNotNull('last_seen')->orderBy('last_seen', 'DESC')->get();
+            $kelasCounts = [];
+
+            foreach ($users as $user) {
+                if ($user->siswa && $user->siswa->kelas) {
+                    $kelasName = $user->siswa->kelas->kelas_name;
+
+                    if (Cache::has('user-is-online-' . $user->id)) {
+                        // Menambahkan kelas ke array
+                        $kelasCounts[$kelasName] = isset($kelasCounts[$kelasName]) ? $kelasCounts[$kelasName] + 1 : 1;
+                    }
+                }
+            }
+
+            // Mengubah array asosiatif ke dalam bentuk yang diinginkan
+            $totalPerKelas = array_map(function ($kelasName, $total) {
+                return ['kelas_name' => $kelasName, 'total' => $total];
+            }, array_keys($kelasCounts), $kelasCounts);
+
+            return response()->json([
+                'total_perkelas' => $totalPerKelas
+            ]);
+        } else {
+            return view('be_page.parameter_user_online');
+        }
+    }
+
 
     public function last_four_online(Request $request)
     {
@@ -93,7 +125,7 @@ class DashboardController extends Controller
                 'status'=>200,
                 'message'=>'display total user akses',
                 'tanggal'=>$tanggal,
-                'total'=>$total
+                'total'=>array_sum($total)
             ]);
         }
     }
@@ -102,10 +134,6 @@ class DashboardController extends Controller
     {
         if ($request->ajax()) {
             # code...
-            // $data = User::select("*")
-            //         ->whereNotNull('last_seen')
-            //         ->orderBy('last_seen', 'DESC')
-            //         ->get();
             $tanggal = date('d-m-Y');
             $data = Userakses::whereHas('user',function($q)use($tanggal){
                 $q->where('tanggal', $tanggal)->orderBy('last_seen','DESC');

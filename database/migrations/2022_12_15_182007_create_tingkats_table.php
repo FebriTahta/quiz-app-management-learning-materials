@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('tingkat_name');
             $table->timestamps();
+
+            // indexing
+            $table->index('tingkat_name', 'tingkat_name_index');
+            $table->index('id', 'tingkat_id_index');
         });
     }
 

@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
+
+             // indexing
+             $table->index('mapel_name', 'mapel_name_index');
+             $table->index('id', 'mapel_id_index');
         });
     }
 

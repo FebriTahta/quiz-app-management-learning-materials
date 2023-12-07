@@ -18,6 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('exam_id')->nullable();
             $table->unsignedBigInteger('kelas_id')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'examkelas_id_index');
         });
     }
 

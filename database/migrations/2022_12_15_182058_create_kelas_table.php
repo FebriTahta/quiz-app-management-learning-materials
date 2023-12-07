@@ -19,6 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger('angkatan_id');
             $table->string('kelas_name');
             $table->timestamps();
+
+             // indexing
+             $table->index('kelas_name', 'kelas_name_index');
+             $table->index('id', 'kelas_id_index');
         });
     }
 

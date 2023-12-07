@@ -19,6 +19,10 @@ return new class extends Migration
             $table->longText('soalexam_kode')->nullable(); // unique untuk edit waktu import ulang soal
             $table->longText('soalexam_name')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('soalexam_name', 'soalexam_name_index');
+            $table->index('id', 'soalexam_id_index');
         });
     }
 

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('role')->nullable();
             $table->string('tanggal')->nullable();
             $table->timestamps();
+
+            // indexing
+            $table->index('id', 'userakses_id_index');
         });
     }
 

@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->foreign('mapel_id')->references('id')->on('mapels')->onDelete('cascade');
             $table->timestamps();
+
+             // indexing
+             $table->index('id', 'kelasmapel_id_index');
         });
     }
 
