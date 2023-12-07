@@ -91,7 +91,7 @@
                             </div>
                             <div class="course__tab-content mb-95">
                                 <div class="tab-content" id="courseTabContent">
-                                    <div class="tab-pane fade" id="review" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="review" role="tabpanel"
                                         aria-labelledby="curriculum-tab">
                                         <div class="course__curriculum">
                                             @foreach ($uraian_aktif as $key => $item)
@@ -142,7 +142,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{--  --}}
 
