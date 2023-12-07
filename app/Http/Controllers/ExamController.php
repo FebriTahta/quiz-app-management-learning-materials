@@ -786,7 +786,7 @@ class ExamController extends Controller
         $kelas_id = Crypt::decrypt($kelas_id);
         $kelas = Kelas::findOrFail($kelas_id);
         $pilihan_ganda_aktif = $kelas->exam->where('exam_status','aktif');
-        if (isser(auth()->user()->siswa)) {
+        if (isset(auth()->user()->siswa)) {
             # code...
             $siswa = auth()->user()->siswa;
             $uraian_aktif = Examurai::where('examurai_status','aktif')->whereHas('kelas', function($query) use ($kelas){
