@@ -21,14 +21,14 @@
                 <div class="row">
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 pb-20">
                         <div class="teacher__details-thumb p-relative w-img">
-                            <div class="blocl">
+                            {{-- <div class="blocl">
                                 @if (auth()->user()->siswa->detailsiswa)
                                     <img src="{{ asset('siswa_image/' . auth()->user()->siswa->detailsiswa->img_siswa) }}"
                                         alt="">
                                 @else
                                     <img src="{{ asset('fe_assets/assets/img/teacer-details-1.jpg') }}" alt="">
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="events__sidebar-widget white-bg">
                                 <div class="events__sponsor">
                                     <h3 class="events__sponsor-title" style="text-transform: capitalize">Name :

@@ -806,7 +806,8 @@ class ExamController extends Controller
         if (isset(auth()->user()->siswa)) {
             # code...
             $siswa = auth()->user()->siswa;
-            $uraian_aktif = Examurai::where('examurai_status','aktif')->whereHas('kelas', function($query) use ($kelas){
+            $uraian_aktif = Examurai::select('examurai_datetimestart','examurai_name','mapel_id','id')
+            ->where('examurai_status','aktif')->whereHas('kelas', function($query) use ($kelas){
                 $query->where('kelas_id', $kelas->id);
             })->whereDate('examurai_datetimestart', now()->toDateString()) // Menambahkan kondisi tanggal
             ->get();
