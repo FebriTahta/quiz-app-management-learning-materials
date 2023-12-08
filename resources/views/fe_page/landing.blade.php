@@ -2,30 +2,7 @@
 
 @section('fe_content')
     <main>
-        <section class="page__title-area page__title-height page__title-overlay d-flex align-items-center"
-            data-background="{{ asset('fe_assets/assets/img/page-title.jpg') }}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="page__title-wrapper mt-110">
-
-                            {{-- @if ($siswa->kelas)
-                            <h3 class="page__title">{{ $siswa->kelas->kelas_name }} {{ $siswa->kelas->jurusan->jurusan_name }}
-                                {{ $siswa->kelas->angkatan->tingkat->tingkat_name }}
-                                "{{ $siswa->kelas->angkatan->angkatan_name }}"</h3>
-                            @endif --}}
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Mapel Room</li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ $siswa->siswa_name }}</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="page__title-area page__title-overlay d-flex align-items-center" style="height: 100px"></section>
 
         <section class="course__area pt-50 pb-50">
             <div class="container"> 
