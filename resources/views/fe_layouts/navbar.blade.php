@@ -189,33 +189,15 @@
                             <div class="header__search p-relative ml-50 d-none d-md-block">
                                 <form action="#">
                                     <input type="text" placeholder="NOTIF" disabled style="width: 160px">
-                                    {{-- <button type="submit"><i class="fad fa-search"></i></button> --}}
                                 </form>
-                                <!-- <div class="header__cart">
-                              <a href="javascript:void(0);" class="cart-toggle-btn">
-                                 <div class="header__cart-icon">
-                                    <svg viewBox="0 0 24 24">
-                                       <circle class="st0" cx="9" cy="21" r="1"/>
-                                       <circle class="st0" cx="20" cy="21" r="1"/>
-                                       <path class="st0" d="M1,1h4l2.7,13.4c0.2,1,1,1.6,2,1.6h9.7c1,0,1.8-0.7,2-1.6L23,6H6"/>
-                                    </svg>
-                                 </div>
-                                 <span class="cart-item">2</span>
-                              </a>
-                           </div> -->
-                           <div class="header__cart">
-                            <a href="javascript:void(0);" class="cart-toggle-btn">
-                               <div class="header__cart-icon">
-                                  {{-- <svg viewBox="0 0 24 24">
-                                     <circle class="st0" cx="9" cy="21" r="1"/>
-                                     <circle class="st0" cx="20" cy="21" r="1"/>
-                                     <path class="st0" d="M1,1h4l2.7,13.4c0.2,1,1,1.6,2,1.6h9.7c1,0,1.8-0.7,2-1.6L23,6H6"/>
-                                  </svg> --}}
-                                  <i class="fa fa-bell"></i>
-                               </div>
-                               <span class="cart-item" id="total_notif">?</span>
-                            </a>
-                         </div>
+                                <div class="header__cart">
+                                    <a href="javascript:void(0);" class="cart-toggle-btn">
+                                    <div class="header__cart-icon">
+                                        <i class="fa fa-bell"></i>
+                                    </div>
+                                    {{-- <span class="cart-item" id="total_notif">?</span> --}}
+                                    </a>
+                                </div>
                             </div>
                             <!-- <div class="header__btn ml-20 d-none d-sm-block">
                            <a href="contact.html" class="e-btn">Try for free</a>
@@ -277,7 +259,6 @@
                     </a>
                 </div>
                 <div class="mobile-menu fix"></div>
-
                 <div class="sidebar__search p-relative mt-40 ">
                     <form action="#">
                         <input type="text" placeholder="Search...">

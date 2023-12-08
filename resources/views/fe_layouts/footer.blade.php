@@ -1,7 +1,7 @@
 </main>
 
 <!-- footer area start -->
-<footer>
+{{-- <footer>
     <div class="footer__area footer-bg">
         <div class="footer__top pt-190 pb-40">
             <div class="container">
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-</footer>
+</footer> --}}
 <!-- footer area end -->
 <!-- JS here -->
 

@@ -2,9 +2,10 @@
 
 @section('fe_content')
     <main>
-        <section class="page__title-area page__title-overlay d-flex align-items-center" style="height: 250px"
-            data-background="{{ asset('fe_assets/assets/img/page-title.jpg') }}">
-            <div class="container">
+        <section class="page__title-area page__title-overlay d-flex align-items-center" style="height: 100px"
+            {{-- data-background="{{ asset('fe_assets/assets/img/page-title.jpg') }}" --}}
+            >
+            {{-- <div class="container">
                 <div class="row">
                     <div class="col-xxl-12">
                         <div class="page__title-wrapper mt-50">
@@ -12,7 +13,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </section>
 
         <section class="course__area pt-120 pb-120">
